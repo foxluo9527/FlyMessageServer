@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery.min.js"></script>
+	<script src="layer-v3.1.1/layer/layer.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.5.1/qs.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            letter-spacing: .05em;
+            border: 0;
+        }
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+        }
+        #app{
+            height: 100%;
+            /*  元素背景   linear-gradient-线性渐变 */
+            background:url("res/images/bg.jpg") no-repeat center fixed;
+            background-size: cover;
+            /*background-image: linear-gradient(to right,#46b8da,orchid);*/
+        }
+        .box{
+            /*background-color:#BC82C7;*/
+            background: rgba(255, 255, 255, 0.6);
+            width: 250px;
+            height: 400px;
+            padding: 0 50px;
+            border-radius: 20px;
+            position: relative;
+            left: 50%;
+            top:50%;
+            /*  定义2D转换  */
+            transform: translate(-50%,-50%);
+        }
+        .box .heard{
+            /* size字体的大小 weight宽度 text-align位置 */
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            /* 行高 */
+            line-height: 130px;
+        }
+        .box .user_phone .input_user_phone{
+            display: block;
+            width: 100%;
+			border-radius: 20rem;
+            margin-bottom: 20px;
+            border: 0;
+            padding: 10px;
+            /* 设置下边框的样式: 实线 */
+            border-bottom: 1px solid rgb(138, 126, 126);
+            font-size: 15px;
+            outline: none;
+        }
+        .box .user_phone .input_user_phone::placeholder{
+            text-transform: uppercase;
+        }
+        .box .button{
+			border-radius: 20rem;
+            text-align: center;
+            padding: 5px;
+            width: 100%;
+            margin-top: 50px;
+            background-image: linear-gradient(to right,#30cfd0,mediumorchid);
+            color: #fff;
+        }
+        .box .button{
+            text-align: center;
+            line-height: 25px;
+        }
+        #app .user_phone .time{
+            position:absolute;
+            top: 195px;
+            left: 190px;
+            width: 40%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <div class="box">
+            <div class="heard">登录飞讯后台</div>
+            <div class="user_phone">
+                <input v-model="userName" class="input_user_phone" type="text" placeholder="输入账号">
+            </div>
+            <div class="user_phone">
+                <input v-model="userPassword" class="input_user_phone" type="password"  placeholder="输入密码">
+            </div>
+            <a href="#"><div class="button" @click="login">登录</div></a>
+        </div>
+    </div>
+<script src="res/js/cookie.js"></script>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                userName: '',
+                userPassword: ''
+            },
+            methods: {
+                login(){
+					//http://localhost:8080/OrderingSystem/shop/login?username=17628648573&&pass=wanling1314
+                    //http://www.foxluo.cn/FlyMessage/SMS/changePass?u_phone=17628648573&u_pass=wanling1314&code=813418
+                    let isurl = 'http://www.foxluo.cn/OrderingSystem/shop/login?username=' + this.userName + '&pass=' + this.userPassword;
+                    let o = {
+                        id:2
+                    }
+                    axios.post(isurl,Qs.stringify(o)).then(res=>{
+                        console.log(res.data);
+                        if (res.data.code === 200) {
+							layer.msg(res.data.msg, {icon: 1,time:4000});
+							window.location.href="index.html"
+							setCookie(res.data.loginUser.u_name);
+                        } else if (res.data.code === 500) {
+							layer.msg(res.data.msg, {icon: 2,time:4000});
+                        }
+                    }).catch(err=>{
+                        console.log(err);
+						layer.msg('登录失败', {icon: 2,time:4000});
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>

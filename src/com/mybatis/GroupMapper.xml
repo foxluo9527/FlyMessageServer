@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.GroupDao">
+
+	<insert id="addGroup" useGeneratedKeys="true" keyProperty="g_id" keyColumn="g_id" parameterType="GroupBean">
+		insert into `group`(g_num,g_name,g_introduce,g_create_time) 
+		values(#{g_num},#{g_name},#{g_introduce},#{g_create_time})
+	</insert>
+	
+	<update id="updateGroupMsg" parameterType="GroupBean">
+		update `group` 
+		<set>
+			<if test="g_name!=null">
+				g_name=#{g_name},
+			</if>
+			<if test="g_introduce!=null">
+				g_introduce=#{g_introduce},
+			</if>
+			<if test="g_head_img!=null">
+				g_head_img=#{g_head_img},
+			</if>
+		</set> 
+		where g_id=#{g_id} 
+	</update>
+	
+	<select id="getUserGroups" resultType="GroupBean" parameterType="UserPageQuery">
+		select * from `group` where `group`.g_id in (select group_member.g_id from group_member where group_member.u_id=#{u_id}) 
+		limit #{pageIndex},#{pageSize}
+	</select>
+	
+	<select id="getGroups" resultType="GroupBean">
+		select * from `group` 
+	</select>
+	
+	<select id="getGroupMsg" resultType="GroupBean" parameterType="Integer">
+		select * from `group` where g_id=#{g_id}
+	</select>
+	
+	<select id="queryGroup" resultType="GroupBean" parameterType="UserPageQuery">
+		select * from `group` where (g_num=#{queryString} or g_name like #{likeString} ) 
+		limit #{pageIndex},#{pageSize}
+	</select>
+	
+	<delete id="delGroup" parameterType="Integer">
+		delete from `group` where g_id=#{g_id};
+		delete from group_member where g_id=#{g_id};
+	</delete>
+	
+	<select id="getGroupCreater" resultType="GroupMember" parameterType="Integer">
+		select * from group_member where power=1 and g_id=#{g_id} 
+	</select>
+	
+	<insert id="addGroupMember" parameterType="GroupMember">
+		insert into group_member(g_id,u_id,power,g_nick_name,add_time) values(#{g_id},#{u_id},#{power},#{g_nick_name},#{add_time})
+	</insert>
+	
+	<update id="changeGroupMemberRemarkName" parameterType="GroupMember">
+		update group_member set g_nick_name=#{g_nick_name} where g_id=#{g_id} and u_id=#{u_id}
+	</update>
+	
+	<delete id="delGroupMember" parameterType="GroupMember">
+		delete from group_member where g_id=#{g_id} and u_id=#{u_id}
+	</delete>
+	
+	<select id="getGroupMCount" resultType="Integer" parameterType="Integer">
+		select count(0) from group_member where g_id=#{g_id}
+	</select>
+	
+	<select id="checkGroupMember" resultType="Integer" parameterType="GroupMember">
+		select count(0) from group_member where g_id=#{g_id} and u_id=#{u_id}
+	</select>
+	
+	<select id="getGroupMember" resultType="GroupMember" parameterType="UserPageQuery">
+		select * from group_member where g_id=#{u_id} 
+		limit #{pageIndex},#{pageSize}
+	</select>
+	<select id="getGroupAllMember" resultType="GroupMember" parameterType="Integer">
+		select * from group_member where g_id=#{g_id} 
+	</select>
+	<select id="getGroupMemberById" resultType="GroupMember" parameterType="GroupMember">
+		select * from group_member where g_id=#{g_id} and u_id=#{u_id}
+	</select>
+</mapper>

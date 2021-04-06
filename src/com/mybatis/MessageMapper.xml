@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.MessageDao">
+	<insert id="sendMessage" useGeneratedKeys="true" keyProperty="m_id" keyColumn="m_id" parameterType="MessageBean">
+		insert into message(m_source_id,m_type,m_source_g_id,m_content_type,m_content,m_object_id,m_send_time) 
+		values(#{m_source_id},#{m_type},#{m_source_g_id},#{m_content_type},#{m_content},#{m_object_id},#{m_send_time})
+	</insert>
+	<select id="getUserMessage" resultType="MessageBean" parameterType="UserPageQuery">
+		select * from message where m_object_id=#{u_id} and m_receive_state=0 
+		order by m_send_time desc 
+		limit #{pageIndex},#{pageSize}
+	</select>
+	<select id="getRecordMessage" resultType="MessageBean" parameterType="UserPageQuery">
+		select * from message where (m_object_id=#{u_id} and m_source_id=#{object_u_id}) 
+		or (m_object_id=#{object_u_id} and m_source_id=#{u_id}) 
+		order by m_send_time desc 
+		limit #{pageIndex},#{pageSize}
+	</select>
+	<select id="getUserAllMessage" resultType="MessageBean" parameterType="Integer">
+		select * from message where m_object_id=#{u_id} and m_receive_state=0 
+		order by m_send_time desc;
+	</select>
+	<update id="receiveMessage" parameterType="MessageBean">
+		update message set m_receive_state=1 where m_id=#{m_id}
+	</update>
+	<!-- 撤销消息 -->
+	<delete id="delMessage" parameterType="MessageBean">
+		delete from message where m_id=#{m_id}
+	</delete>
+</mapper>

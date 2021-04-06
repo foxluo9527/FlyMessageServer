@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.FriendDao">
+	<select id="checkFriendRelationship" resultType="Integer" parameterType="FriendBean">
+		select count(0) from friend where (f_source_u_id=#{f_source_u_id} and f_object_u_id=#{f_object_u_id}) 
+		or (f_source_u_id=#{f_object_u_id} and f_object_u_id=#{f_source_u_id})
+	</select>
+	<select id="checkBlackList" resultType="Integer" parameterType="BlackListBean">
+		select count(0) from blacklist where (source_u_id=#{source_u_id} and object_u_id=#{object_u_id}) 
+	</select>
+	<insert id="addBlackList" parameterType="BlackListBean">
+		insert into blacklist(source_u_id,object_u_id,time) values(#{source_u_id},#{object_u_id},#{time})
+	</insert>
+	<select id="getUserBlackList" resultType="BlackListBean" parameterType="UserPageQuery">
+		select * from blacklist where source_u_id=#{u_id} 
+		limit #{pageIndex},#{pageSize}
+	</select>
+	<delete id="delBlackList" parameterType="BlackListBean">
+		delete from blacklist where (bl_id=#{bl_id} or object_u_id=#{object_u_id}) and source_u_id=#{source_u_id}
+	</delete>
+	<insert id="addFriendRequest" useGeneratedKeys="true" keyProperty="rq_id" keyColumn="rq_id" parameterType="FriendRequestBean">
+		insert into friend_request(rq_source_u_id,rq_object_u_id,rq_content,rq_remarks_name,time) 
+		values(#{rq_source_u_id},#{rq_object_u_id},#{rq_content},#{rq_remarks_name},#{time})
+	</insert>
+	<delete id="delFriendRequest" parameterType="FriendRequestBean">
+		delete from friend_request where rq_id=#{rq_id} and rq_object_u_id=#{rq_object_u_id}
+	</delete>
+	<select id="getFriendRequest" resultType="FriendRequestBean" parameterType="UserPageQuery">
+		select * from friend_request where rq_object_u_id=#{u_id} 
+		limit #{pageIndex},#{pageSize}
+	</select>
+	<select id="getFriendRequestById" resultType="FriendRequestBean" parameterType="Integer">
+		select * from friend_request where rq_id=#{rq_id} 
+	</select>
+	<select id="getAllFriendRequest" resultType="FriendRequestBean" parameterType="Integer">
+		select * from friend_request where rq_object_u_id=#{u_id}
+	</select>
+
+	<update id="receiveFriendRequest" parameterType="FriendBean">
+		update friend_request set rq_receive_state=1 where rq_source_u_id=#{f_source_u_id} and rq_source_u_id=#{f_object_u_id}
+	</update>
+	<insert id="addFriend" parameterType="FriendBean">
+		insert into friend(f_source_u_id,f_object_u_id,f_remarks_name,time) values(#{f_source_u_id},#{f_object_u_id},#{f_remarks_name},#{time})
+	</insert>
+	<update id="changeFriendRemarkName" parameterType="FriendBean">
+		update friend set f_remarks_name=#{f_remarks_name} where f_id=#{f_id}
+	</update>
+	<select id="getFriendById" resultType="FriendBean" parameterType="Integer">
+		select * from friend where f_id=#{f_id}
+	</select>
+	<delete id="delFriend" parameterType="FriendBean">
+		delete from friend where (f_source_u_id=#{f_source_u_id} and f_object_u_id=#{f_object_u_id}) or 
+		(f_source_u_id=#{f_object_u_id} and f_object_u_id=#{f_source_u_id})
+	</delete>
+	<select id="getUserFriends" resultType="FriendBean" parameterType="UserPageQuery">
+		select * from friend where f_source_u_id=#{u_id} 
+		limit #{pageIndex},#{pageSize}
+	</select>
+</mapper>

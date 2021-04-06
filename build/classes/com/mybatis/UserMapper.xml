@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UserDao">
+	<select id="login"  resultType="UserBean" parameterType="UserBean">
+		select * from user where (u_name =  #{u_name} or u_phone=#{u_phone} )and u_pass = #{u_pass} and u_forbidden=0
+	</select>
+	<insert id="register" useGeneratedKeys="true" keyProperty="u_id" keyColumn="u_id" parameterType="UserBean">
+		insert into user (u_name, u_phone,u_pass,u_create_time) values (#{u_name}, #{u_phone}, #{u_pass},#{u_create_time})
+	</insert>
+	<select id="getUserById" resultType="UserBean" parameterType="Integer">
+		select * from user where u_id=#{u_id}
+	</select>
+	<select id="getUserByName" resultType="UserBean" parameterType="String">
+		select * from user where u_name=#{u_name}
+	</select>
+	<select id="checkPhone" resultType="UserBean" parameterType="String">
+		select * from user where u_phone = #{phone} and u_forbidden=0
+	</select>
+	<update id="changePass" parameterType="UserBean">
+		update user set u_pass=#{u_pass} where u_phone=#{u_phone}
+	</update>
+	<update id="updateMsg" parameterType="UserBean">
+		update user 
+		<set>
+			<if test="u_name!=null">
+				u_name=#{u_name},
+			</if>
+			<if test="u_nick_name!=null">
+				u_nick_name=#{u_nick_name},
+			</if>
+			<if test="u_sex!=null">
+				u_sex=#{u_sex},
+			</if>
+			<if test="u_brithday!=null">
+				u_brithday=#{u_brithday},
+			</if>
+			<if test="u_position!=null">
+				u_position=#{u_position}
+			</if>
+			<if test="u_bg_img!=null">
+				u_bg_img=#{u_bg_img}
+			</if>
+		</set>
+			where u_id=#{u_id}
+	</update>
+	<update id="changeHead" parameterType="UserBean">
+		<if test="u_head_img!=null">
+			update user set u_head_img=#{u_head_img} where u_id=#{u_id};
+			insert into user_head (u_id,head_img_link,time) values(#{u_id},#{u_head_img},#{nowDate})
+		</if>
+	</update>
+	
+	<update id="forbiddenUser" parameterType="UserBean">
+		update user set u_forbidden=1 where u_id=#{u_id} 
+	</update>
+	<delete id="delUserHead" parameterType="Integer">
+		delete from user_head where h_id=#{h_id}
+	</delete>
+	<select id="getUserHeads" resultType="UserHeadBean" parameterType="UserPageQuery">
+		select * from user_head where u_id=#{u_id} 
+		limit #{pageIndex},#{pageSize}
+	</select>
+	<select id="getHeadById" resultType="UserHeadBean" parameterType="Integer">
+		select * from user_head where h_id=#{h_id}
+	</select>
+	<select id="queryUser" resultType="UserBean" parameterType="UserPageQuery">
+		select * from user where (u_name=#{queryString} or u_phone=#{queryString} or u_nick_name like #{likeString} ) 
+		limit #{pageIndex},#{pageSize}
+	</select>
+	<insert id="addUserSign" parameterType="UserSignBean">
+		insert into user_sign(s_content,u_id,time) values(#{s_content},#{u_id},#{time});
+		update user set u_sign=#{s_content} where u_id=#{u_id}
+	</insert>
+	<delete id="delUserSign" parameterType="UserSignBean">
+		delete from user_sign where s_id=#{s_id}
+	</delete>
+	<select id="getUserSigns" resultType="UserSignBean" parameterType="UserPageQuery">
+		select * from user_sign where u_id=#{u_id} 
+		limit #{pageIndex},#{pageSize}
+	</select>
+	<insert id="addUserPrivacy" parameterType="UserBean">
+		insert into user_privacy(p_u_id) values(#{u_id})
+	</insert>
+	<update id="changeUserPrivacy" parameterType="UserPrivacyBean">
+		update user_privacy 
+		<set>
+			<if test="add_friend_question1!=null">
+				add_friend_question1=#{add_friend_question1}, 
+			</if>
+			<if test="add_friend_answer1!=null">
+				add_friend_answer1=#{add_friend_answer1}, 
+			</if>
+			<if test="add_friend_question2!=null">
+				add_friend_question2=#{add_friend_question2}, 
+			</if>
+			<if test="add_friend_answer2!=null">
+				add_friend_answer2=#{add_friend_answer2}, 
+			</if>
+			<if test="add_friend_question3!=null">
+				add_friend_question3=#{add_friend_question3}, 
+			</if>
+			<if test="add_friend_answer3!=null">
+				add_friend_answer3=#{add_friend_answer3}, 
+			</if>
+			add_friend_type=#{add_friend_type},
+			show_u_message=#{show_u_message}, 
+			show_online_state=#{show_online_state} 
+			where p_u_id=#{p_u_id}
+		</set> 
+	</update>
+	<select id="getUserPrivacy" resultType="UserPrivacyBean" parameterType="UserBean">
+		select * from user_privacy where p_u_id=#{u_id}
+	</select>
+	
+	<!-- 获取展示资料卡权限 -->
+	<select id="checkShowMsgPrivacy" resultType="Integer" parameterType="Integer">
+		select COALESCE(max(show_u_message),0)  FROM user_privacy WHERE p_u_id=#{u_id}
+	</select>
+	
+	<select id="checkBlackList" resultType="Integer" parameterType="BlackListBean">
+		SELECT COUNT(0) FROM blacklist WHERE source_u_id=#{source_u_id} and object_u_id=#{object_u_id}
+	</select>
+	
+	<select id="checkUserName" resultType="Integer" parameterType="String">
+		select count(0) from user where u_name=#{u_name} and u_forbidden=0;
+	</select>
+	
+	<update id="changePhone" parameterType="UserBean">
+		update user set u_phone=#{u_phone} where u_id=#{u_id}
+	</update>
+</mapper>
