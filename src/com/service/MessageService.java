@@ -6,8 +6,8 @@ import com.po.MessageBean;
 import com.po.UserPageQuery;
 
 public interface MessageService {
-	public String sendMessage(MessageBean message,HttpServletRequest request);
-	public String getUserMessage(UserPageQuery query);
-	public String getRecordMessage(UserPageQuery query);
-	public String delMessage(MessageBean message);
+	String sendMessage(MessageBean message,HttpServletRequest request);
+	String getUserMessage(UserPageQuery query);
+	String getRecordMessage(UserPageQuery query);
+	String delMessage(MessageBean message);
 }

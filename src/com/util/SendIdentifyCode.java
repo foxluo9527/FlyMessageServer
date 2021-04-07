@@ -22,22 +22,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSONObject;
-
 public class SendIdentifyCode {
-    private static String ENCODING = "UTF-8";
 
     /**
      * @param mobile 手机号码
      * @param code   验证码
      * @param model  0:注册验证;1:登录验证
-     * @return 验证信息，为null则发送验证失败
      */
-    public static JSONObject sendIdentifyCode(String mobile, String code, int model) {
-        JSONObject result;
+    public static void sendIdentifyCode(String mobile, String code, int model) {
         String resultText;
         String postStr = Constant.SEND_URL;
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
         params.put("apikey", Constant.API_KEY);
         String content = null;
         if (model == Constant.MODEL_REGISTER) {
@@ -50,9 +45,7 @@ public class SendIdentifyCode {
         params.put("text", content);
         params.put("mobile", mobile);
         resultText = post(postStr, params);
-        result = (JSONObject) JSONObject.parse(resultText);
         System.out.println(resultText);
-        return result;
     }
 
     /**
@@ -69,9 +62,9 @@ public class SendIdentifyCode {
         CloseableHttpResponse response = null;
         try {
             HttpPost method = new HttpPost(url);
+            String ENCODING = "UTF-8";
             if (paramsMap != null) {
-                List<NameValuePair> paramList = new ArrayList<
-                        NameValuePair>();
+                List<NameValuePair> paramList = new ArrayList<>();
                 for (Map.Entry<String, String> param : paramsMap.entrySet()) {
                     NameValuePair pair = new BasicNameValuePair(param.getKey(),
                             param.getValue());
@@ -89,6 +82,7 @@ public class SendIdentifyCode {
             e.printStackTrace();
         } finally {
             try {
+                assert response != null;
                 response.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -112,11 +106,11 @@ public class SendIdentifyCode {
 
             in = new BufferedReader(new InputStreamReader(response.getEntity()
                     .getContent()));
-            StringBuffer sb = new StringBuffer("");
-            String line = "";
+            StringBuilder sb = new StringBuilder();
+            String line;
             String NL = System.getProperty("line.separator");
             while ((line = in.readLine()) != null) {
-                sb.append(line + NL);
+                sb.append(line).append(NL);
             }
             in.close();
             content = sb.toString();

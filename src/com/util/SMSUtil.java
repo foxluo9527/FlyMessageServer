@@ -13,12 +13,10 @@ public class SMSUtil {
      *
      * @param phone 电话号码
      * @param model 短信模板
-     * @return
      */
     public static boolean sendSMS(String phone, int model) {
         String code = GetRandom.getRandom();
-        for (int i = 0; i < SMSList.size(); i++) {
-            SMSBean bean = SMSList.get(i);
+        for (SMSBean bean : SMSList) {
             if (bean.getPhone().equals(phone)) {
                 if (bean.getTimeOut() && bean.getCount() <= 3) {
                     new Thread(() -> SendIdentifyCode.sendIdentifyCode(phone, code, model)).start();
@@ -46,14 +44,10 @@ public class SMSUtil {
 
     /**
      * 获取验证码
-     *
-     * @param phone
-     * @return
      */
     public static String getCode(String phone) {
         String code = null;
-        for (int i = 0; i < SMSList.size(); i++) {
-            SMSBean bean = SMSList.get(i);
+        for (SMSBean bean : SMSList) {
             if (bean.getPhone().equals(phone)) {
                 code = bean.getCode();
             }
@@ -63,17 +57,13 @@ public class SMSUtil {
 
     /**
      * 获取电话号码一小时内发送验证码次数
-     *
-     * @param phone
-     * @return
      */
     public static int getCount(String phone) {
         if (SMSList == null) {
             SMSList = new ArrayList<>();
         }
         int count = 0;
-        for (int i = 0; i < SMSList.size(); i++) {
-            SMSBean bean = SMSList.get(i);
+        for (SMSBean bean : SMSList) {
             if (bean.getPhone().equals(phone)) {
                 return bean.getCount();
             }
@@ -83,8 +73,7 @@ public class SMSUtil {
 
     public static int getModel(String phone) {
         int model = -1;
-        for (int i = 0; i < SMSList.size(); i++) {
-            SMSBean bean = SMSList.get(i);
+        for (SMSBean bean : SMSList) {
             if (bean.getPhone().equals(phone)) {
                 return bean.getModel();
             }
@@ -94,13 +83,9 @@ public class SMSUtil {
 
     /**
      * 获取电话号码是否到发送时间
-     *
-     * @param phone
-     * @return
      */
     public static boolean getTimeout(String phone) {
-        for (int i = 0; i < SMSList.size(); i++) {
-            SMSBean bean = SMSList.get(i);
+        for (SMSBean bean : SMSList) {
             if (bean.getPhone().equals(phone)) {
                 return bean.getTimeOut();
             }
@@ -110,11 +95,8 @@ public class SMSUtil {
 
     /**
      * 从短信列表移除
-     *
-     * @param phone
-     * @return
      */
-    public static boolean removeSMS(String phone) {
+    public static void removeSMS(String phone) {
         for (int i = 0; i < SMSList.size(); i++) {
             SMSBean bean = SMSList.get(i);
             if (bean.getPhone().equals(phone)) {
@@ -122,18 +104,13 @@ public class SMSUtil {
                 SMSList.remove(bean);
             }
         }
-        return true;
     }
 
     /**
      * 获取验证码有效时间
-     *
-     * @param phone
-     * @return
      */
     public static long getUsefulTime(String phone) {
-        for (int i = 0; i < SMSList.size(); i++) {
-            SMSBean bean = SMSList.get(i);
+        for (SMSBean bean : SMSList) {
             if (bean.getPhone().equals(phone)) {
                 return bean.getUsefulTime();
             }
@@ -203,7 +180,6 @@ public class SMSUtil {
                 try {
                     Thread.sleep(60 * 60 * 1000);
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

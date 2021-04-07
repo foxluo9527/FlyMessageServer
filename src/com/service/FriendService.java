@@ -6,25 +6,25 @@ import com.po.FriendRequestBean;
 import com.po.UserPageQuery;
 
 public interface FriendService {
-	public String addBlackList(BlackListBean blackList);
-	
-	public String getUserBlackList(UserPageQuery query);
-	
-	public String checkBlackList(BlackListBean blackList);
-	
-	public String delBlackList(BlackListBean blackList);
-	
-	public String addFriendRequest(FriendRequestBean friendRequest);
-	
-	public String delFriendRequest(FriendRequestBean friendRequest);
-	
-	public String acceptFriendRequest(FriendRequestBean friendRequest);
-	
-	public String getFriendRequest(UserPageQuery query);
-	
-	public String delFriend( FriendBean friendBean);
-	
-	public String changeFriendRemarkName(FriendBean friend);
-	
-	public String getUserFriends(UserPageQuery query);
+    String addBlackList(BlackListBean blackList);
+
+    String getUserBlackList(UserPageQuery query);
+
+    String checkBlackList(BlackListBean blackList);
+
+    String delBlackList(BlackListBean blackList);
+
+    String addFriendRequest(FriendRequestBean friendRequest);
+
+    String delFriendRequest(FriendRequestBean friendRequest);
+
+    String acceptFriendRequest(FriendRequestBean friendRequest);
+
+    String getFriendRequest(UserPageQuery query);
+
+    String delFriend(FriendBean friendBean);
+
+    String changeFriendRemarkName(FriendBean friend);
+
+    String getUserFriends(UserPageQuery query);
 }

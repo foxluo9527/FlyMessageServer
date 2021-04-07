@@ -3,10 +3,15 @@ package com.service;
 import com.po.UserBean;
 
 public interface SMSService {
-	public String sendRegisterSMS(String phone);
-	public String sendLoginSMS(String phone);
-	public String sendChangePassSMS(String phone);
-	public String noPassLogin(String phone,String code);
-	public String register(UserBean user,String code);
-	public String changePass(UserBean user,String code);
+    String sendRegisterSMS(String phone);
+
+    String sendLoginSMS(String phone);
+
+    String sendChangePassSMS(String phone);
+
+    String noPassLogin(String phone, String code);
+
+    String register(UserBean user, String code);
+
+    String changePass(UserBean user, String code);
 }

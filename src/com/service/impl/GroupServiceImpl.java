@@ -1,4 +1,4 @@
-package com.service;
+package com.service.impl;
 
 import java.io.File;
 import java.util.Date;
@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.service.GroupService;
+import com.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

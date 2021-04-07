@@ -1,5 +1,6 @@
-package com.service;
+package com.service.impl;
 
+import com.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
@@ -7,7 +8,11 @@ import com.dao.UserDao;
 import com.po.AdminBean;
 import com.po.UserBean;
 import com.po.UserPageQuery;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service("AdminService")
+@Transactional
 public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private UserDao userDao;

@@ -1,11 +1,11 @@
 package com.util;
- 
-import java.io.UnsupportedEncodingException;
+
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
- 
+
 /**
- *  base64码加密工具类，主要用于从数据库查询出用户名和密码后，进行加密然后传给SIEM平台
- * */
+ * base64码加密工具类，主要用于从数据库查询出用户名和密码后，进行加密然后传给SIEM平台
+ */
 public class Base64Util {
     private static final char last2byte = (char) Integer.parseInt("00000011", 2);
     private static final char last4byte = (char) Integer.parseInt("00001111", 2);
@@ -14,19 +14,21 @@ public class Base64Util {
     private static final char lead4byte = (char) Integer.parseInt("11110000", 2);
     private static final char lead2byte = (char) Integer.parseInt("11000000", 2);
     private static final char[] encodeTable = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
- 
+
     public Base64Util() {
     }
- 
-    /** 对明文进行base64码加密
+
+    /**
+     * 对明文进行base64码加密
+     *
      * @param from 需要加密的明文的byte[]数组
      * @return 加密之后的base64码
-     * */
+     */
     public static String encode(byte[] from) {
         StringBuilder to = new StringBuilder((int) ((double) from.length * 1.34D) + 3);
         int num = 0;
         char currentByte = 0;
- 
+
         int i;
         for (i = 0; i < from.length; ++i) {
             for (num %= 8; num < 8; num += 6) {
@@ -56,31 +58,29 @@ public class Base64Util {
                             currentByte = (char) (currentByte | (from[i + 1] & lead4byte) >>> 4);
                         }
                 }
- 
+
                 to.append(encodeTable[currentByte]);
             }
         }
- 
+
         if (to.length() % 4 != 0) {
             for (i = 4 - to.length() % 4; i > 0; --i) {
                 to.append("=");
             }
         }
- 
+
         return to.toString();
     }
- 
-    /** 对base64码进行解码
+
+    /**
+     * 对base64码进行解码
+     *
      * @param code 需要解码的base64字符串
      * @return 解码之后的字符串
-     * */
-    public static String decode(String code){
-        String str="";
-        try {
-            str=new String(Base64.getDecoder().decode(code),"utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+     */
+    public static String decode(String code) {
+        String str;
+        str = new String(Base64.getDecoder().decode(code), StandardCharsets.UTF_8);
         return str;
     }
 }
