@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-config.dtd">
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-       <typeAlias alias="UserBean" type="com.po.UserBean"/>
-       <typeAlias alias="UserHeadBean" type="com.po.UserHeadBean"/>
-       <typeAlias alias="UserPageQuery" type="com.po.UserPageQuery"/>
-       <typeAlias alias="UserSignBean" type="com.po.UserSignBean"/>
-       <typeAlias alias="UserPrivacyBean" type="com.po.UserPrivacyBean"/>
-       <typeAlias alias="MessageBean" type="com.po.MessageBean"/>
-       <typeAlias alias="BlackListBean" type="com.po.BlackListBean"/>
-       <typeAlias alias="FriendBean" type="com.po.FriendBean"/>
-       <typeAlias alias="FriendRequestBean" type="com.po.FriendRequestBean"/>
-       <typeAlias alias="GroupBean" type="com.po.GroupBean"/>
-       <typeAlias alias="GroupMember" type="com.po.GroupMember"/>
-     </typeAliases>
-	 <mappers>
-       <mapper resource="com/mybatis/UserMapper.xml"/>
-       <mapper resource="com/mybatis/MessageMapper.xml"/>
-       <mapper resource="com/mybatis/FriendMapper.xml"/>
-       <mapper resource="com/mybatis/GroupMapper.xml"/>
- 	</mappers>
+        <typeAlias alias="UserBean" type="com.po.UserBean"/>
+        <typeAlias alias="UserHeadBean" type="com.po.UserHeadBean"/>
+        <typeAlias alias="UserPageQuery" type="com.po.UserPageQuery"/>
+        <typeAlias alias="UserSignBean" type="com.po.UserSignBean"/>
+        <typeAlias alias="UserPrivacyBean" type="com.po.UserPrivacyBean"/>
+        <typeAlias alias="MessageBean" type="com.po.MessageBean"/>
+        <typeAlias alias="BlackListBean" type="com.po.BlackListBean"/>
+        <typeAlias alias="FriendBean" type="com.po.FriendBean"/>
+        <typeAlias alias="FriendRequestBean" type="com.po.FriendRequestBean"/>
+        <typeAlias alias="GroupBean" type="com.po.GroupBean"/>
+        <typeAlias alias="GroupMember" type="com.po.GroupMember"/>
+
+        <typeAlias alias="CommunityPost" type="com.po.CommunityPost"/>
+        <typeAlias alias="CommunityPostZan" type="com.po.CommunityPostZan"/>
+        <typeAlias alias="CommunityPostItem" type="com.po.CommunityPostItem"/>
+        <typeAlias alias="CommunityPostComment" type="com.po.CommunityPostComment"/>
+        <typeAlias alias="CommunityPostCommentZan" type="com.po.CommunityPostCommentZan"/>
+        <typeAlias alias="CommunityPostCommentReply" type="com.po.CommunityPostCommentReply"/>
+    </typeAliases>
+    <mappers>
+        <mapper resource="com/mybatis/UserMapper.xml"/>
+        <mapper resource="com/mybatis/MessageMapper.xml"/>
+        <mapper resource="com/mybatis/FriendMapper.xml"/>
+        <mapper resource="com/mybatis/GroupMapper.xml"/>
+        <mapper resource="com/mybatis/CommunityPostMapper.xml"/>
+    </mappers>
 </configuration>
 

@@ -5,9 +5,7 @@ import java.util.Date;
 
 public class CommunityPost {
     private Integer communityPostId;
-
-    private String communityId;
-
+    private Integer uId;
     /**
      * 帖子文章内容
      */
@@ -55,18 +53,12 @@ public class CommunityPost {
         this.communityPostId = communityPostId;
     }
 
-    /**
-     * @return community_id
-     */
-    public String getCommunityId() {
-        return communityId;
+    public Integer getuId() {
+        return uId;
     }
 
-    /**
-     * @param communityId
-     */
-    public void setCommunityId(String communityId) {
-        this.communityId = communityId;
+    public void setuId(Integer uId) {
+        this.uId = uId;
     }
 
     /**
