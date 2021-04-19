@@ -34,7 +34,7 @@ import com.util.Constant;
 @Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDao UserDao;
+    private UserDao userDao;
     @Autowired
     private FriendDao friendDao;
     @Autowired
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         user.setU_name(username);
         user.setU_phone(username);
         user.setU_pass(Base64Util.encode(pass.getBytes()));
-        UserBean loginUser = UserDao.login(user);
+        UserBean loginUser = userDao.login(user);
         if (loginUser != null) {
             String token = UUID.randomUUID().toString();
             TokenUtil.addToken(token, loginUser, 6 * 60);
@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
                     e.printStackTrace();
                 }
                 user.setU_bg_img(bgUrl);
-                if (UserDao.updateMsg(user) > 0) {
+                if (userDao.updateMsg(user) > 0) {
                     flag = true;
                 }
             }
@@ -138,6 +138,16 @@ public class UserServiceImpl implements UserService {
                 result.put("code", 200);
                 result.put("bgUrl", bgUrl);
                 result.put("msg", "修改背景成功");
+                user=userDao.getUserById(user.getU_id());
+                try {
+                    //http://www.foxluo.cn/FlyMessage/images/userBgImg/20210419151442320.jpg
+                    String realpath = "images/userBgImg" +
+                            user.getU_bg_img().replace("http://www.foxluo.cn/FlyMessage/images/userBgImg", "");
+                    File file = new File(realpath);
+                    file.delete();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
                 result.put("code", 500);
                 result.put("msg", "修改背景失败");
@@ -176,7 +186,7 @@ public class UserServiceImpl implements UserService {
                     e.printStackTrace();
                 }
                 user.setU_head_img(headUrl);
-                if (UserDao.changeHead(user) > 0) {
+                if (userDao.changeHead(user) > 0) {
                     flag = true;
                 }
             }
@@ -200,7 +210,7 @@ public class UserServiceImpl implements UserService {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
         try {
-            List<UserHeadBean> heads = UserDao.getUserHeads(query);
+            List<UserHeadBean> heads = userDao.getUserHeads(query);
             result.put("code", 200);
             result.put("heads", JSONObject.toJSON(heads));
             result.put("msg", "获取头像成功");
@@ -217,7 +227,7 @@ public class UserServiceImpl implements UserService {
     public String addUserSign(UserSignBean sign) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        if (UserDao.addUserSign(sign) > 0) {
+        if (userDao.addUserSign(sign) > 0) {
             result.put("code", 200);
             result.put("msg", "添加签名成功");
         } else {
@@ -231,7 +241,7 @@ public class UserServiceImpl implements UserService {
     public String delUserSign(UserSignBean sign) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        if (UserDao.delUserSign(sign) > 0) {
+        if (userDao.delUserSign(sign) > 0) {
             result.put("code", 200);
             result.put("msg", "删除签名成功");
         } else {
@@ -245,7 +255,7 @@ public class UserServiceImpl implements UserService {
     public String getUserSigns(UserPageQuery query) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        List<UserSignBean> signs = UserDao.getUserSigns(query);
+        List<UserSignBean> signs = userDao.getUserSigns(query);
         if (signs != null) {
             result.put("code", 200);
             result.put("sign", JSONObject.toJSON(signs));
@@ -262,13 +272,13 @@ public class UserServiceImpl implements UserService {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
         try {
-            List<UserBean> queryUsers = UserDao.queryUser(query);
+            List<UserBean> queryUsers = userDao.queryUser(query);
             JSONArray resultArray = new JSONArray();
             for (int i = 0; i < queryUsers.size(); i++) {
                 checkBlackList.setSource_u_id(queryUsers.get(i).getU_id());
                 checkBlackList.setObject_u_id(query.getU_id());
                 //检测用户是否在对方黑名单，并且检测对方隐私设置：是否能查看资料
-                if (UserDao.checkShowMsgPrivacy(queryUsers.get(i).getU_id()) != 1 && UserDao.checkBlackList(checkBlackList) == 0) {
+                if (userDao.checkShowMsgPrivacy(queryUsers.get(i).getU_id()) != 1 && userDao.checkBlackList(checkBlackList) == 0) {
                     JSONObject resultUser = (JSONObject) JSONObject.toJSON(queryUsers.get(i));
                     friend.setF_object_u_id(queryUsers.get(i).getU_id());
                     friend.setF_source_u_id(query.getU_id());
@@ -300,7 +310,7 @@ public class UserServiceImpl implements UserService {
     public String updateUserMsg(UserBean user) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        if (UserDao.updateMsg(user) > 0) {
+        if (userDao.updateMsg(user) > 0) {
             result.put("code", 200);
             result.put("msg", "修改用户信息成功");
         } else {
@@ -314,7 +324,7 @@ public class UserServiceImpl implements UserService {
     public String changeUserPrivacy(UserPrivacyBean privacy) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        if (UserDao.changeUserPrivacy(privacy) > 0) {
+        if (userDao.changeUserPrivacy(privacy) > 0) {
             result.put("code", 200);
             result.put("msg", "修改用户隐私设置成功");
         } else {
@@ -328,7 +338,7 @@ public class UserServiceImpl implements UserService {
     public String getUserPrivacy(UserBean user) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        UserPrivacyBean privacy = UserDao.getUserPrivacy(user);
+        UserPrivacyBean privacy = userDao.getUserPrivacy(user);
         if (privacy != null) {
             result.put("code", 200);
             result.put("privacy", JSONObject.toJSON(privacy));
@@ -344,9 +354,20 @@ public class UserServiceImpl implements UserService {
     public String delUserHead(int h_id) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        if (UserDao.delUserHead(h_id) > 0) {
-            result.put("code", 200);
-            result.put("msg", "删除头像成功");
+        UserHeadBean userHeadBean = userDao.getHeadById(h_id);
+        if (userHeadBean != null && userDao.delUserHead(h_id) > 0) {
+            try {
+                //http://www.foxluo.cn/FlyMessage/images/userHeads/20210419151442320.jpg
+                String realpath = "images/userHeads" +
+                        userHeadBean.getHead_img_link().replace("http://www.foxluo.cn/FlyMessage/images/userHeads", "");
+                File file = new File(realpath);
+                file.delete();
+                result.put("code", 200);
+                result.put("msg", "删除头像成功");
+            } catch (Exception e) {
+                result.put("code", 500);
+                result.put("msg", "删除头像失败");
+            }
         } else {
             result.put("code", 500);
             result.put("msg", "删除头像失败");
@@ -358,11 +379,11 @@ public class UserServiceImpl implements UserService {
     public String changeOldHead(UserBean user, int h_id) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        UserHeadBean headBean = UserDao.getHeadById(h_id);
+        UserHeadBean headBean = userDao.getHeadById(h_id);
         if (headBean != null && user != null) {
             user.setNowDate(new Date());
             user.setU_head_img(headBean.getHead_img_link());
-            if (UserDao.changeHead(user) > 0 && UserDao.delUserHead(h_id) > 0) {
+            if (userDao.changeHead(user) > 0 && userDao.delUserHead(h_id) > 0) {
                 result.put("code", 200);
                 result.put("msg", "更换头像成功");
             } else {
@@ -380,8 +401,8 @@ public class UserServiceImpl implements UserService {
     public String getUserByName(int u_id, String u_name) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        UserBean user = UserDao.getUserByName(u_name);
-        if (user != null && UserDao.checkShowMsgPrivacy(user.getU_id()) != 1) {
+        UserBean user = userDao.getUserByName(u_name);
+        if (user != null && userDao.checkShowMsgPrivacy(user.getU_id()) != 1) {
             JSONObject resultUser = (JSONObject) JSONObject.toJSON(user);
             friend.setF_object_u_id(user.getU_id());
             friend.setF_source_u_id(u_id);
@@ -409,7 +430,7 @@ public class UserServiceImpl implements UserService {
     public String getUserByID(int u_id, int object_u_id) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        UserBean user = UserDao.getUserById(object_u_id);
+        UserBean user = userDao.getUserById(object_u_id);
         if (user != null) {
             JSONObject resultUser = (JSONObject) JSONObject.toJSON(user);
             friend.setF_object_u_id(user.getU_id());
@@ -438,7 +459,7 @@ public class UserServiceImpl implements UserService {
     public String checkUserName(String u_name) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        if (UserDao.checkUserName(u_name) == 0) {
+        if (userDao.checkUserName(u_name) == 0) {
             result.put("code", 200);
             result.put("msg", "用户名未使用");
         } else {
@@ -452,7 +473,7 @@ public class UserServiceImpl implements UserService {
     public String checkUserPhone(String phone) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        if (UserDao.checkPhone(phone) == null) {
+        if (userDao.checkPhone(phone) == null) {
             result.put("code", 200);
             result.put("msg", "手机号未使用");
         } else {
@@ -466,7 +487,7 @@ public class UserServiceImpl implements UserService {
     public String changePass(UserBean user) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        if (UserDao.changePass(user) > 0) {
+        if (userDao.changePass(user) > 0) {
             result.put("code", 200);
             result.put("msg", "修改密码成功");
         } else {
@@ -480,7 +501,7 @@ public class UserServiceImpl implements UserService {
     public String changePhone(UserBean user) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
-        if (UserDao.changePhone(user) > 0) {
+        if (userDao.changePhone(user) > 0) {
             result.put("code", 200);
             result.put("msg", "修改手机号成功");
         } else {

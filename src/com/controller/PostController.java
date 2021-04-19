@@ -223,7 +223,7 @@ public class PostController {
      * @param loginToken
      * @return
      */
-    @RequestMapping(value = "/zanPost",
+    @RequestMapping(value = "/zanPostComment",
             method = RequestMethod.GET,
             produces = "text/html;charset=UTF-8")
     @ResponseBody
