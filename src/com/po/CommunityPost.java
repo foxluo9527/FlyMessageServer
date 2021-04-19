@@ -16,11 +16,19 @@ public class CommunityPost {
      */
     private Integer communityPostState;
 
+    /**
+     * 当前用户对该贴的点赞状态
+     * 0:未点赞,1:已点赞
+     */
+    private Integer zanState;
+
     private Integer shareCount;
 
     private Integer zanCount;
 
     private Integer showCount;
+
+    private Integer commentCount;
 
     private Date createTime;
 
@@ -59,6 +67,14 @@ public class CommunityPost {
 
     public void setuId(Integer uId) {
         this.uId = uId;
+    }
+
+    public Integer getZanState() {
+        return zanState;
+    }
+
+    public void setZanState(Integer zanState) {
+        this.zanState = (zanState > 0 ? 1 : 0);
     }
 
     /**
@@ -151,6 +167,14 @@ public class CommunityPost {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 
     public ArrayList<CommunityPostItem> getPostItems() {

@@ -1,10 +1,172 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.CommunityPostDao">
-    <insert id="addPost" parameterType="CommunityPost" useGeneratedKeys="true" keyProperty="community_post_id" keyColumn="community_post_id">
-        insert into community_post(community_post_content,u_id,community_post_state,create_time)
-        values(#{communityPostContent},#{uId},#{communityPostState},#{createTime})
+    <insert id="addPost" parameterType="CommunityPost" useGeneratedKeys="true" keyProperty="community_post_id"
+            keyColumn="community_post_id">
+        insert into community_post(community_post_content, u_id, community_post_state, create_time)
+        values (#{communityPostContent}, #{uId}, #{communityPostState}, #{createTime})
     </insert>
+
+    <select id="getPost" resultType="CommunityPost" parameterType="Integer">
+        select *
+        from community_post
+        where community_post_id = #{postId}
+    </select>
+
+    <select id="getPosts" resultType="CommunityPost" parameterType="UserPageQuery">
+        select *
+        from community_post
+        order by create_time desc
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+    <select id="getUserPosts" resultType="CommunityPost" parameterType="UserPageQuery">
+        select *
+        from community_post
+        where u_id = #{u_id}
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+    <update id="updatePost" parameterType="CommunityPost">
+        update community_post
+        set community_post_content=#{communityPostContent},
+            zan_state=#{zanState},
+            zan_count=#{zanCount},
+            show_count=#{showCount},
+            comment_count=#{commentCount}
+        where community_post_id = #{communityPostId}
+    </update>
+
+    <delete id="delPost" parameterType="CommunityPost">
+        delete
+        from community_post
+        where community_post_id = #{communityPostId}
+          and u_id = #{uId}
+    </delete>
+
+    <select id="getPostZanState" resultType="Integer" parameterType="CommunityPost">
+        select count(0)
+        from community_post_zan
+        where community_post_id = #{communityPostId}
+          and user_id = #{uId}
+    </select>
+
+    <select id="getPostZans" resultType="CommunityPostZan" parameterType="Integer">
+        select *
+        from community_post_zan
+        where community_post_id = #{postId}
+    </select>
+
+    <delete id="cancelZanPost" parameterType="CommunityPost">
+        delete
+        from community_post_zan
+        where community_post_id = #{communityPostId}
+          and user_id = #{uId}
+    </delete>
+
+    <delete id="delPostZan" parameterType="Integer">
+        delete
+        from community_post_zan
+        where community_post_zan_id = #{postZanId}
+    </delete>
+
+    <insert id="addPostItem" parameterType="CommunityPostItem">
+        insert into community_post_item(community_post_id, community_post_item_type, community_post_item_url)
+        values (#{communityPostId}, #{communityPostItemType}, #{communityPostItemUrl})
+    </insert>
+
+    <select id="getPostItem" parameterType="Integer" resultType="CommunityPostItem">
+        select *
+        from community_post_item
+        where community_post_item_id = #{itemId};
+    </select>
+
+    <select id="getAllCommunityPostItem" parameterType="Integer" resultType="CommunityPostItem">
+        select *
+        from community_post_item
+        where community_post_id = #{postId};
+    </select>
+
+    <delete id="delCommunityPostItem" parameterType="Integer">
+        delete
+        from community_post_item
+        where community_post_item_id = #{itemId}
+    </delete>
+
+    <insert id="addPostComment" parameterType="CommunityPostComment">
+        insert into community_post_comment(community_post_id, send_u_id, send_u_head, send_u_name,
+                                           community_post_comment_content, state, create_time)
+        values (#{communityPostId}, #{sendUId}, #{sendUHead}, #{sendUName}, #{communityPostCommentContent}, #{state},
+                #{createTime})
+    </insert>
+
+    <select id="getPostComment" parameterType="Integer" resultType="CommunityPostComment">
+        select *
+        from community_post_comment
+        where community_post_comment_id = #{commentId};
+    </select>
+
+    <select id="getPostComments" parameterType="Integer" resultType="CommunityPostComment">
+        select *
+        from community_post_comment
+        where community_post_id = #{postId};
+    </select>
+
+    <update id="updatePostComment" parameterType="CommunityPostComment">
+        update community_post_comment
+        set hot_value=#{hotValue},
+            zan_num=#{zanNum}
+        where community_post_comment_id = #{communityPostCommentId}
+    </update>
+
+    <delete id="delPostComment" parameterType="Integer">
+        delete
+        from community_post_comment
+        where community_post_comment_id = #{postCommentId}
+    </delete>
+
+    <insert id="addPostCommentReply" parameterType="CommunityPostCommentReply">
+        insert into community_post_comment_reply(community_post_comment_id, send_u_id, send_u_head, send_u_name,
+                                                 reply_u_id, reply_u_name, reply_content, state, create_time)
+        values (#{communityPostCommentId}, #{sendUId}, #{sendUHead}, #{sendUName}, #{replyUId}, #{replyUName},
+                #{replyContent}, #{state}, #{createTime})
+    </insert>
+
+    <select id="getPostCommentReplies" parameterType="Integer">
+        select *
+        from community_post_comment_reply
+        where community_post_comment_id = #{commentId}
+    </select>
+
+    <delete id="delPostCommentReply" parameterType="Integer">
+        delete
+        from community_post_comment_reply
+        where community_post_comment_reply_id = #{postCommentReplyId}
+    </delete>
+
+    <insert id="zanPostComment" parameterType="CommunityPostCommentZan">
+        insert into community_post_comment_zan(community_post_comment_id, zan_u_id, zan_u_name, zan_u_head, create_time)
+        values (#{communityPostCommentId}, #{zanUId}, #{zanUName}, #{zanUHead}, #{createTime})
+    </insert>
+
+    <select id="getPostCommentZans" parameterType="Integer">
+        select *
+        from community_post_comment_zan
+        where community_post_comment_id = #{commentId};
+    </select>
+
+    <delete id="cancelZanPostComment" parameterType="CommunityPostCommentZan">
+        delete
+        from community_post_comment_zan
+        where community_post_comment_id = #{communityPostCommentId}
+          and zan_u_id = #{zanUId}
+    </delete>
+
+    <delete id="delPostCommentZan" parameterType="Integer">
+        delete
+        from community_post_comment_zan
+        where community_post_comment_zan_id = #{postCommentZanId}
+    </delete>
 </mapper>

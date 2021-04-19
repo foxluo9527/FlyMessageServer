@@ -227,7 +227,6 @@ public class UserController {
 	/**
 	 * GET String phone
 	 * @param phone
-	 * @param loginToken
 	 * @return
 	 */
 	@RequestMapping(value="/checkUserPhone",

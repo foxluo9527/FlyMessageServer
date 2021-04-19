@@ -1,5 +1,6 @@
 [
 	{ "id": "ad", text: "广告推送", url: "pages/1.html" },
+	{ "id": "community", text: "社区管理", url: "pages/1.html" },
     { "id": "user", iconCls:"icon-new",text: "用户管理", children: [
 		{ "id": "user_list", text: "用户列表", url: "pages/1.html" },
         { "id": "user_message", text: "用户信息", url: "pages/1.html" }

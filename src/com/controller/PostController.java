@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Date;
 
 @Controller
-@RequestMapping("/post")
+@RequestMapping("/community")
 public class PostController {
     @Autowired
     PostService postService;
@@ -111,7 +111,6 @@ public class PostController {
      * 添加帖子附图
      *
      * @param postId     对应帖子id
-     * @param request    获取图片
      * @param loginToken 登录令牌，核对帖子发帖人是否匹配
      * @return
      */
@@ -149,9 +148,24 @@ public class PostController {
             method = RequestMethod.GET,
             produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String getUserPost(int userId, String loginToken) {
+    public String getUserPost(@ModelAttribute UserPageQuery query,  String loginToken) {
         Token token = TokenUtil.getTokenUser(loginToken);
-        return postService.getUserPost(userId, token.getUser().getU_id());
+        return postService.getUserPost(query, token.getUser().getU_id());
+    }
+
+    /**
+     * 获取帖子详情
+     * @param postId
+     * @param loginToken
+     * @return
+     */
+    @RequestMapping(value = "/getPost",
+            method = RequestMethod.GET,
+            produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getPost(int postId,  String loginToken) {
+        Token token = TokenUtil.getTokenUser(loginToken);
+        return postService.getPost(postId, token.getUser().getU_id());
     }
 
     /**
@@ -190,7 +204,7 @@ public class PostController {
     /**
      * 删除帖子评论
      *
-     * @param postId
+     * @param postCommentId
      * @param loginToken
      * @return
      */
@@ -236,7 +250,7 @@ public class PostController {
     /**
      * 回复帖子评论
      *
-     * @param postId
+     * @param postCommentId
      * @param content
      * @param loginToken
      * @return
