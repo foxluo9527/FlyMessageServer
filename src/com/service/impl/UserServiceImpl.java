@@ -138,11 +138,11 @@ public class UserServiceImpl implements UserService {
                 result.put("code", 200);
                 result.put("bgUrl", bgUrl);
                 result.put("msg", "修改背景成功");
-                user=userDao.getUserById(user.getU_id());
+                user = userDao.getUserById(user.getU_id());
                 try {
                     //http://www.foxluo.cn/FlyMessage/images/userBgImg/20210419151442320.jpg
-                    String realpath = "images/userBgImg" +
-                            user.getU_bg_img().replace("http://www.foxluo.cn/FlyMessage/images/userBgImg", "");
+                    String realpath = "C:\\Users/Administrator/Desktop/apache-tomcat-7.0.96/webapps/FlyMessage/images/userBgImg" +
+                            user.getU_bg_img().substring("http://www.foxluo.cn/FlyMessage/images/userBgImg".length());
                     File file = new File(realpath);
                     file.delete();
                 } catch (Exception e) {
@@ -358,13 +358,15 @@ public class UserServiceImpl implements UserService {
         if (userHeadBean != null && userDao.delUserHead(h_id) > 0) {
             try {
                 //http://www.foxluo.cn/FlyMessage/images/userHeads/20210419151442320.jpg
-                String realpath = "images/userHeads" +
-                        userHeadBean.getHead_img_link().replace("http://www.foxluo.cn/FlyMessage/images/userHeads", "");
+                String realpath = "C:\\Users/Administrator/Desktop/apache-tomcat-7.0.96/webapps/FlyMessage/images/userHeads" +
+                        userHeadBean.getHead_img_link().substring("http://www.foxluo.cn/FlyMessage/images/userHeads".length());
                 File file = new File(realpath);
+                System.out.println("realpath:"+realpath);
                 file.delete();
                 result.put("code", 200);
                 result.put("msg", "删除头像成功");
             } catch (Exception e) {
+                e.printStackTrace();
                 result.put("code", 500);
                 result.put("msg", "删除头像失败");
             }
@@ -403,21 +405,8 @@ public class UserServiceImpl implements UserService {
         JSONObject result = new JSONObject();
         UserBean user = userDao.getUserByName(u_name);
         if (user != null && userDao.checkShowMsgPrivacy(user.getU_id()) != 1) {
-            JSONObject resultUser = (JSONObject) JSONObject.toJSON(user);
-            friend.setF_object_u_id(user.getU_id());
-            friend.setF_source_u_id(u_id);
-            int isFriend = friendDao.checkFriendRelationship(friend);
-            if (isFriend > 0) {
-                resultUser.put("isFriend", true);
-            } else {
-                resultUser.put("isFriend", false);
-            }
-            resultUser.remove("u_pass");
-            resultUser.remove("u_phone");
-            resultUser.remove("u_forbidden");
-            resultUser.put("isOnline", msgScoketHandle.getUserOnlineState(friend.getF_object_u_id()));
             result.put("code", 200);
-            result.put("user", resultUser);
+            result.put("user", initUserResult(u_id));
             result.put("msg", "获取用户信息成功");
         } else {
             result.put("code", 500);
@@ -426,27 +415,31 @@ public class UserServiceImpl implements UserService {
         return result.toJSONString();
     }
 
+    private String initUserResult(int u_id) {
+        JSONObject resultUser = (JSONObject) JSONObject.toJSON(user);
+        friend.setF_object_u_id(user.getU_id());
+        friend.setF_source_u_id(u_id);
+        int isFriend = friendDao.checkFriendRelationship(friend);
+        if (isFriend > 0) {
+            resultUser.put("isFriend", true);
+        } else {
+            resultUser.put("isFriend", false);
+        }
+        resultUser.remove("u_pass");
+        resultUser.remove("u_phone");
+        resultUser.remove("u_forbidden");
+        resultUser.put("isOnline", msgScoketHandle.getUserOnlineState(friend.getF_object_u_id()));
+        return (String) JSONObject.toJSON(resultUser);
+    }
+
     @Override
     public String getUserByID(int u_id, int object_u_id) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
         UserBean user = userDao.getUserById(object_u_id);
         if (user != null) {
-            JSONObject resultUser = (JSONObject) JSONObject.toJSON(user);
-            friend.setF_object_u_id(user.getU_id());
-            friend.setF_source_u_id(u_id);
-            int isFriend = friendDao.checkFriendRelationship(friend);
-            if (isFriend > 0) {
-                resultUser.put("isFriend", true);
-            } else {
-                resultUser.put("isFriend", false);
-            }
-            resultUser.remove("u_pass");
-            resultUser.remove("u_phone");
-            resultUser.remove("u_forbidden");
-            resultUser.put("isOnline", msgScoketHandle.getUserOnlineState(friend.getF_object_u_id()));
             result.put("code", 200);
-            result.put("user", resultUser);
+            result.put("user", initUserResult(u_id));
             result.put("msg", "获取用户信息成功");
         } else {
             result.put("code", 500);

@@ -210,7 +210,7 @@ public class MessageServiceImpl implements MessageService {
                 //文件类型删除源文件
                 String realpath = "C:\\upload/file/messageFile" +
                         getMsgFile(message.getM_content()).
-                                replace("http://www.foxluo.cn/FlyMessage/file/messageFile", "");
+                                substring("http://www.foxluo.cn/FlyMessage/file/messageFile".length());
                 File file=new File(realpath);
                 file.delete();
             }

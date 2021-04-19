@@ -97,7 +97,7 @@ public class PostServiceImpl implements PostService {
         try {
             if (item != null && post != null && post.getuId() == u_id && communityPostDao.delCommunityPostItem(postItemId) > 0) {
                 String realpath = "C:\\upload/file/postFile" +
-                        item.getCommunityPostItemUrl().replace("http://www.foxluo.cn/FlyMessage/file/postFile", "");
+                        item.getCommunityPostItemUrl().substring("http://www.foxluo.cn/FlyMessage/file/postFile".length());
                 File file = new File(realpath);
                 file.delete();
                 result.put("code", 200);
