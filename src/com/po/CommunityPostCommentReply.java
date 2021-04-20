@@ -3,14 +3,14 @@ package com.po;
 import java.util.Date;
 
 public class CommunityPostCommentReply {
-    private Integer communityPostCommentReplyId;
+    private int communityPostCommentReplyId;
 
-    private Integer communityPostCommentId;
+    private int communityPostCommentId;
 
     /**
      * 回复人id
      */
-    private Integer sendUId;
+    private int sendUId;
 
     private String sendUName;
 
@@ -19,7 +19,7 @@ public class CommunityPostCommentReply {
     /**
      * 被回复人id
      */
-    private Integer replyUId;
+    private int replyUId;
 
     private String replyUName;
 
@@ -32,28 +32,28 @@ public class CommunityPostCommentReply {
     /**
      * @return community_post_comment_reply_id
      */
-    public Integer getCommunityPostCommentReplyId() {
+    public int getCommunityPostCommentReplyId() {
         return communityPostCommentReplyId;
     }
 
     /**
      * @param communityPostCommentReplyId
      */
-    public void setCommunityPostCommentReplyId(Integer communityPostCommentReplyId) {
+    public void setCommunityPostCommentReplyId(int communityPostCommentReplyId) {
         this.communityPostCommentReplyId = communityPostCommentReplyId;
     }
 
     /**
      * @return community_post_comment_id
      */
-    public Integer getCommunityPostCommentId() {
+    public int getCommunityPostCommentId() {
         return communityPostCommentId;
     }
 
     /**
      * @param communityPostCommentId
      */
-    public void setCommunityPostCommentId(Integer communityPostCommentId) {
+    public void setCommunityPostCommentId(int communityPostCommentId) {
         this.communityPostCommentId = communityPostCommentId;
     }
 
@@ -62,7 +62,7 @@ public class CommunityPostCommentReply {
      *
      * @return send_u_id - 回复人id
      */
-    public Integer getSendUId() {
+    public int getSendUId() {
         return sendUId;
     }
 
@@ -71,7 +71,7 @@ public class CommunityPostCommentReply {
      *
      * @param sendUId 回复人id
      */
-    public void setSendUId(Integer sendUId) {
+    public void setSendUId(int sendUId) {
         this.sendUId = sendUId;
     }
 
@@ -108,7 +108,7 @@ public class CommunityPostCommentReply {
      *
      * @return reply_u_id - 被回复人id
      */
-    public Integer getReplyUId() {
+    public int getReplyUId() {
         return replyUId;
     }
 
@@ -117,7 +117,7 @@ public class CommunityPostCommentReply {
      *
      * @param replyUId 被回复人id
      */
-    public void setReplyUId(Integer replyUId) {
+    public void setReplyUId(int replyUId) {
         this.replyUId = replyUId;
     }
 

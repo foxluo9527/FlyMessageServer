@@ -3,53 +3,53 @@ package com.po;
 import java.util.Date;
 
 public class CommunityPostZan {
-    private Integer communityPostZanId;
+    private int communityPostZanId;
 
-    private Integer communityPostId;
+    private int communityPostId;
 
-    private Integer userId;
+    private int userId;
 
     private Date createTime;
 
     /**
      * @return community_post_zan_id
      */
-    public Integer getCommunityPostZanId() {
+    public int getCommunityPostZanId() {
         return communityPostZanId;
     }
 
     /**
      * @param communityPostZanId
      */
-    public void setCommunityPostZanId(Integer communityPostZanId) {
+    public void setCommunityPostZanId(int communityPostZanId) {
         this.communityPostZanId = communityPostZanId;
     }
 
     /**
      * @return community_post_id
      */
-    public Integer getCommunityPostId() {
+    public int getCommunityPostId() {
         return communityPostId;
     }
 
     /**
      * @param communityPostId
      */
-    public void setCommunityPostId(Integer communityPostId) {
+    public void setCommunityPostId(int communityPostId) {
         this.communityPostId = communityPostId;
     }
 
     /**
      * @return user_id
      */
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
     }
 
     /**
      * @param userId
      */
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

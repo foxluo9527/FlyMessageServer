@@ -2,6 +2,7 @@ package com.dao;
 
 import com.po.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Repository("CommunityPostDao")
 @Mapper
 public interface CommunityPostDao {
+    @Options(useGeneratedKeys = true, keyProperty = "community_post_id", keyColumn = "community_post_id")
     public int addPost(CommunityPost post);
 
     public CommunityPost getPost(int postId);

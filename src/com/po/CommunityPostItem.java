@@ -1,42 +1,42 @@
 package com.po;
 
 public class CommunityPostItem {
-    private Integer communityPostItemId;
+    private int communityPostItemId;
 
-    private Integer communityPostId;
+    private int communityPostId;
 
     /**
      * 0:图片，1:视频
      */
-    private Integer communityPostItemType;
+    private int communityPostItemType;
 
     private String communityPostItemUrl;
 
     /**
      * @return community_post_item_id
      */
-    public Integer getCommunityPostItemId() {
+    public int getCommunityPostItemId() {
         return communityPostItemId;
     }
 
     /**
      * @param communityPostItemId
      */
-    public void setCommunityPostItemId(Integer communityPostItemId) {
+    public void setCommunityPostItemId(int communityPostItemId) {
         this.communityPostItemId = communityPostItemId;
     }
 
     /**
      * @return community_post_id
      */
-    public Integer getCommunityPostId() {
+    public int getCommunityPostId() {
         return communityPostId;
     }
 
     /**
      * @param communityPostId
      */
-    public void setCommunityPostId(Integer communityPostId) {
+    public void setCommunityPostId(int communityPostId) {
         this.communityPostId = communityPostId;
     }
 
@@ -45,7 +45,7 @@ public class CommunityPostItem {
      *
      * @return community_post_item_type - 0:图片，1:视频
      */
-    public Integer getCommunityPostItemType() {
+    public int getCommunityPostItemType() {
         return communityPostItemType;
     }
 
@@ -54,7 +54,7 @@ public class CommunityPostItem {
      *
      * @param communityPostItemType 0:图片，1:视频
      */
-    public void setCommunityPostItemType(Integer communityPostItemType) {
+    public void setCommunityPostItemType(int communityPostItemType) {
         this.communityPostItemType = communityPostItemType;
     }
 

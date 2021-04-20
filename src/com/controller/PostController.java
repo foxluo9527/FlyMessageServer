@@ -29,7 +29,6 @@ public class PostController {
      * @return ·¢Ìû½á¹û
      */
     @RequestMapping(value = "/addPost",
-            method = RequestMethod.POST,
             produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String addPost(String content, String loginToken) {
@@ -51,7 +50,6 @@ public class PostController {
      * @return
      */
     @RequestMapping(value = "/editPostContent",
-            method = RequestMethod.POST,
             produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String editPostContent(int postId, String content, String loginToken) {
@@ -99,7 +97,6 @@ public class PostController {
      * @return
      */
     @RequestMapping(value = "/delPostItem",
-            method = RequestMethod.POST,
             produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String delPost(int postId, String loginToken) {
@@ -194,7 +191,6 @@ public class PostController {
      * @return
      */
     @RequestMapping(value = "/addPostComment",
-            method = RequestMethod.POST,
             produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String addPostComment(int postId, String content, String loginToken) {
@@ -256,7 +252,6 @@ public class PostController {
      * @return
      */
     @RequestMapping(value = "/replyPostComment",
-            method = RequestMethod.POST,
             produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String replyPostComment(int postCommentId, String content, String loginToken) {

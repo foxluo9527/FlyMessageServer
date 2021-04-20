@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class CommunityPostComment {
-    private Integer communityPostCommentId;
+    private int communityPostCommentId;
 
-    private Integer communityPostId;
+    private int communityPostId;
 
-    private Integer sendUId;
+    private int sendUId;
 
     private String sendUName;
 
@@ -29,56 +29,56 @@ public class CommunityPostComment {
     /**
      * 热度值:点赞+1，回复+1
      */
-    private Integer hotValue;
+    private int hotValue;
 
-    private Integer zanNum;
+    private int zanNum;
 
     /**
      * 0:待审核,1:通过,2:未通过
      */
-    private Integer state;
+    private int state;
 
     private Date createTime;
 
     /**
      * @return community_post_comment_id
      */
-    public Integer getCommunityPostCommentId() {
+    public int getCommunityPostCommentId() {
         return communityPostCommentId;
     }
 
     /**
      * @param communityPostCommentId
      */
-    public void setCommunityPostCommentId(Integer communityPostCommentId) {
+    public void setCommunityPostCommentId(int communityPostCommentId) {
         this.communityPostCommentId = communityPostCommentId;
     }
 
     /**
      * @return community_post_id
      */
-    public Integer getCommunityPostId() {
+    public int getCommunityPostId() {
         return communityPostId;
     }
 
     /**
      * @param communityPostId
      */
-    public void setCommunityPostId(Integer communityPostId) {
+    public void setCommunityPostId(int communityPostId) {
         this.communityPostId = communityPostId;
     }
 
     /**
      * @return send_u_id
      */
-    public Integer getSendUId() {
+    public int getSendUId() {
         return sendUId;
     }
 
     /**
      * @param sendUId
      */
-    public void setSendUId(Integer sendUId) {
+    public void setSendUId(int sendUId) {
         this.sendUId = sendUId;
     }
 
@@ -129,7 +129,7 @@ public class CommunityPostComment {
      *
      * @return hot_value - 热度值:点赞+1，回复+1
      */
-    public Integer getHotValue() {
+    public int getHotValue() {
         return hotValue;
     }
 
@@ -138,21 +138,21 @@ public class CommunityPostComment {
      *
      * @param hotValue 热度值:点赞+1，回复+1
      */
-    public void setHotValue(Integer hotValue) {
+    public void setHotValue(int hotValue) {
         this.hotValue = hotValue;
     }
 
     /**
      * @return zan_num
      */
-    public Integer getZanNum() {
+    public int getZanNum() {
         return zanNum;
     }
 
     /**
      * @param zanNum
      */
-    public void setZanNum(Integer zanNum) {
+    public void setZanNum(int zanNum) {
         this.zanNum = zanNum;
     }
 
@@ -161,7 +161,7 @@ public class CommunityPostComment {
      *
      * @return state - 0:待审核,1:通过,2:未通过
      */
-    public Integer getState() {
+    public int getState() {
         return state;
     }
 
@@ -170,7 +170,7 @@ public class CommunityPostComment {
      *
      * @param state 0:待审核,1:通过,2:未通过
      */
-    public void setState(Integer state) {
+    public void setState(int state) {
         this.state = state;
     }
 

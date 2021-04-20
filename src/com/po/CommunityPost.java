@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class CommunityPost {
-    private Integer communityPostId;
-    private Integer uId;
+    private int communityPostId;
+    private int uId;
     /**
      * 帖子文章内容
      */
@@ -14,21 +14,21 @@ public class CommunityPost {
     /**
      * 0:未审核,1:审核完成,2:审核失败,3:已封禁
      */
-    private Integer communityPostState;
+    private int communityPostState;
 
     /**
      * 当前用户对该贴的点赞状态
      * 0:未点赞,1:已点赞
      */
-    private Integer zanState;
+    private int zanState;
 
-    private Integer shareCount;
+    private int shareCount;
 
-    private Integer zanCount;
+    private int zanCount;
 
-    private Integer showCount;
+    private int showCount;
 
-    private Integer commentCount;
+    private int commentCount;
 
     private Date createTime;
 
@@ -50,30 +50,30 @@ public class CommunityPost {
     /**
      * @return community_post_id
      */
-    public Integer getCommunityPostId() {
+    public int getCommunityPostId() {
         return communityPostId;
     }
 
     /**
      * @param communityPostId
      */
-    public void setCommunityPostId(Integer communityPostId) {
+    public void setCommunityPostId(int communityPostId) {
         this.communityPostId = communityPostId;
     }
 
-    public Integer getuId() {
+    public int getuId() {
         return uId;
     }
 
-    public void setuId(Integer uId) {
+    public void setuId(int uId) {
         this.uId = uId;
     }
 
-    public Integer getZanState() {
+    public int getZanState() {
         return zanState;
     }
 
-    public void setZanState(Integer zanState) {
+    public void setZanState(int zanState) {
         this.zanState = (zanState > 0 ? 1 : 0);
     }
 
@@ -100,7 +100,7 @@ public class CommunityPost {
      *
      * @return community_post_state - 0:未审核,1:审核完成,2:审核失败,3:已封禁
      */
-    public Integer getCommunityPostState() {
+    public int getCommunityPostState() {
         return communityPostState;
     }
 
@@ -109,49 +109,49 @@ public class CommunityPost {
      *
      * @param communityPostState 0:未审核,1:审核完成,2:审核失败,3:已封禁
      */
-    public void setCommunityPostState(Integer communityPostState) {
+    public void setCommunityPostState(int communityPostState) {
         this.communityPostState = communityPostState;
     }
 
     /**
      * @return share_count
      */
-    public Integer getShareCount() {
+    public int getShareCount() {
         return shareCount;
     }
 
     /**
      * @param shareCount
      */
-    public void setShareCount(Integer shareCount) {
+    public void setShareCount(int shareCount) {
         this.shareCount = shareCount;
     }
 
     /**
      * @return zan_count
      */
-    public Integer getZanCount() {
+    public int getZanCount() {
         return zanCount;
     }
 
     /**
      * @param zanCount
      */
-    public void setZanCount(Integer zanCount) {
+    public void setZanCount(int zanCount) {
         this.zanCount = zanCount;
     }
 
     /**
      * @return show_count
      */
-    public Integer getShowCount() {
+    public int getShowCount() {
         return showCount;
     }
 
     /**
      * @param showCount
      */
-    public void setShowCount(Integer showCount) {
+    public void setShowCount(int showCount) {
         this.showCount = showCount;
     }
 
@@ -169,11 +169,11 @@ public class CommunityPost {
         this.createTime = createTime;
     }
 
-    public Integer getCommentCount() {
+    public int getCommentCount() {
         return commentCount;
     }
 
-    public void setCommentCount(Integer commentCount) {
+    public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
     }
 

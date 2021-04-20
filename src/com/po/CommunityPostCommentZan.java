@@ -3,14 +3,14 @@ package com.po;
 import java.util.Date;
 
 public class CommunityPostCommentZan {
-    private Integer communityPostCommentZanId;
+    private int communityPostCommentZanId;
 
-    private Integer communityPostCommentId;
+    private int communityPostCommentId;
 
     /**
      * 回复人id
      */
-    private Integer zanUId;
+    private int zanUId;
 
     private String zanUName;
 
@@ -21,28 +21,28 @@ public class CommunityPostCommentZan {
     /**
      * @return community_post_comment_zan_id
      */
-    public Integer getCommunityPostCommentZanId() {
+    public int getCommunityPostCommentZanId() {
         return communityPostCommentZanId;
     }
 
     /**
      * @param communityPostCommentZanId
      */
-    public void setCommunityPostCommentZanId(Integer communityPostCommentZanId) {
+    public void setCommunityPostCommentZanId(int communityPostCommentZanId) {
         this.communityPostCommentZanId = communityPostCommentZanId;
     }
 
     /**
      * @return community_post_comment_id
      */
-    public Integer getCommunityPostCommentId() {
+    public int getCommunityPostCommentId() {
         return communityPostCommentId;
     }
 
     /**
      * @param communityPostCommentId
      */
-    public void setCommunityPostCommentId(Integer communityPostCommentId) {
+    public void setCommunityPostCommentId(int communityPostCommentId) {
         this.communityPostCommentId = communityPostCommentId;
     }
 
@@ -51,7 +51,7 @@ public class CommunityPostCommentZan {
      *
      * @return zan_u_id - 回复人id
      */
-    public Integer getZanUId() {
+    public int getZanUId() {
         return zanUId;
     }
 
@@ -60,7 +60,7 @@ public class CommunityPostCommentZan {
      *
      * @param zanUId 回复人id
      */
-    public void setZanUId(Integer zanUId) {
+    public void setZanUId(int zanUId) {
         this.zanUId = zanUId;
     }
 

@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="FlyMessage:war">
-    <output-path>$PROJECT_DIR$/out/artifacts/FlyMessage_war</output-path>
-    <root id="archive" name="FlyMessage_war.war">
-      <element id="artifact" artifact-name="FlyMessage:war exploded" />
-      <element id="dir-copy" path="$PROJECT_DIR$/WebContent" />
-    </root>
-  </artifact>
-</component>

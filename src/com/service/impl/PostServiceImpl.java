@@ -33,7 +33,7 @@ public class PostServiceImpl implements PostService {
             int id = communityPostDao.addPost(post);
             if (id > 0) {
                 result.put("code", 200);
-                result.put("postId", post.getCommunityPostId());
+                result.put("postId", id);
                 result.put("msg", "发表帖子成功");
             }
         } catch (Exception e) {
