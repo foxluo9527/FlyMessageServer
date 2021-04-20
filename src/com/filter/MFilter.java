@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONObject;
 import com.po.Token;
 import com.util.TokenUtil;
+import org.apache.http.util.TextUtils;
+
 /**
  * Servlet Filter implementation class DomoFilter
  */
@@ -62,9 +64,10 @@ public class MFilter implements Filter {
 				||url.contains(".woff2")||url.contains(".otf")||url.contains(".less")||url.contains(".scss")
 				||url.contains(".json")||url.contains(".htm")||url.contains(".gif")||url.contains(".ico")) {
 			chain.doFilter(request, response);
-		}else if (url.contains("/user")||url.contains("/webSocketServer")||url.contains("/message")||url.contains("/friend")||url.contains("/group")) {
+		}else if (url.contains("/user")||url.contains("/webSocketServer")||url.contains("/message")||url.contains("/friend")||url.contains("/group")||url.contains("/community")) {
 			String token=r.getParameter("loginToken");
-			Token loginToken=TokenUtil.getTokenUser(token);
+			Token loginToken;
+			loginToken = TokenUtil.getTokenUser(token);
 			JSONObject result=new JSONObject();
 			if (loginToken!=null) {
 				if (loginToken.getEndTime()<new Date().getTime()) {
