@@ -3,106 +3,106 @@ package com.po;
 import java.util.Date;
 
 public class CommunityPostCommentZan {
-    private int communityPostCommentZanId;
+    private int community_post_comment_zan_id;
 
-    private int communityPostCommentId;
+    private int community_post_comment_id;
 
     /**
-     * 鍥炲浜篿d
+     * 回复人id
      */
-    private int zanUId;
+    private int zan_u_id;
 
-    private String zanUName;
+    private String zan_u_name;
 
-    private String zanUHead;
+    private String zan_u_head;
 
-    private Date createTime;
+    private Date create_time;
 
     /**
      * @return community_post_comment_zan_id
      */
-    public int getCommunityPostCommentZanId() {
-        return communityPostCommentZanId;
+    public int getCommunity_post_comment_zan_id() {
+        return community_post_comment_zan_id;
     }
 
     /**
-     * @param communityPostCommentZanId
+     * @param community_post_comment_zan_id
      */
-    public void setCommunityPostCommentZanId(int communityPostCommentZanId) {
-        this.communityPostCommentZanId = communityPostCommentZanId;
+    public void setCommunity_post_comment_zan_id(int community_post_comment_zan_id) {
+        this.community_post_comment_zan_id = community_post_comment_zan_id;
     }
 
     /**
      * @return community_post_comment_id
      */
-    public int getCommunityPostCommentId() {
-        return communityPostCommentId;
+    public int getCommunity_post_comment_id() {
+        return community_post_comment_id;
     }
 
     /**
-     * @param communityPostCommentId
+     * @param community_post_comment_id
      */
-    public void setCommunityPostCommentId(int communityPostCommentId) {
-        this.communityPostCommentId = communityPostCommentId;
+    public void setCommunity_post_comment_id(int community_post_comment_id) {
+        this.community_post_comment_id = community_post_comment_id;
     }
 
     /**
-     * 鑾峰彇鍥炲浜篿d
+     * 获取回复人id
      *
-     * @return zan_u_id - 鍥炲浜篿d
+     * @return zan_u_id - 回复人id
      */
-    public int getZanUId() {
-        return zanUId;
+    public int getZan_u_id() {
+        return zan_u_id;
     }
 
     /**
-     * 璁剧疆鍥炲浜篿d
+     * 设置回复人id
      *
-     * @param zanUId 鍥炲浜篿d
+     * @param zan_u_id 回复人id
      */
-    public void setZanUId(int zanUId) {
-        this.zanUId = zanUId;
+    public void setZan_u_id(int zan_u_id) {
+        this.zan_u_id = zan_u_id;
     }
 
     /**
      * @return zan_u_name
      */
-    public String getZanUName() {
-        return zanUName;
+    public String getZan_u_name() {
+        return zan_u_name;
     }
 
     /**
-     * @param zanUName
+     * @param zan_u_name
      */
-    public void setZanUName(String zanUName) {
-        this.zanUName = zanUName;
+    public void setZan_u_name(String zan_u_name) {
+        this.zan_u_name = zan_u_name;
     }
 
     /**
      * @return zan_u_head
      */
-    public String getZanUHead() {
-        return zanUHead;
+    public String getZan_u_head() {
+        return zan_u_head;
     }
 
     /**
-     * @param zanUHead
+     * @param zan_u_head
      */
-    public void setZanUHead(String zanUHead) {
-        this.zanUHead = zanUHead;
+    public void setZan_u_head(String zan_u_head) {
+        this.zan_u_head = zan_u_head;
     }
 
     /**
-     * @return create_time
+     * @return create__time
      */
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreate_time() {
+        return create_time;
     }
 
     /**
-     * @param createTime
+     * @param create_time
      */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
 }

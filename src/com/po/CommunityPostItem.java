@@ -1,74 +1,74 @@
 package com.po;
 
 public class CommunityPostItem {
-    private int communityPostItemId;
+    private int community_post_item_id;
 
-    private int communityPostId;
+    private int community_post_id;
 
     /**
-     * 0:å›¾ç‰‡ï¼Œ1:è§†é¢‘
+     * 0:Í¼Æ¬£¬1:ÊÓÆµ
      */
-    private int communityPostItemType;
+    private int community_post_item_type;
 
-    private String communityPostItemUrl;
+    private String community_post_item_url;
 
     /**
      * @return community_post_item_id
      */
-    public int getCommunityPostItemId() {
-        return communityPostItemId;
+    public int getCommunity_post_item_id() {
+        return community_post_item_id;
     }
 
     /**
      * @param communityPostItemId
      */
-    public void setCommunityPostItemId(int communityPostItemId) {
-        this.communityPostItemId = communityPostItemId;
+    public void setCommunity_post_item_id(int community_post_item_id) {
+        this.community_post_item_id = community_post_item_id;
     }
 
     /**
      * @return community_post_id
      */
-    public int getCommunityPostId() {
-        return communityPostId;
+    public int getCommunity_post_id() {
+        return community_post_id;
     }
 
     /**
      * @param communityPostId
      */
-    public void setCommunityPostId(int communityPostId) {
-        this.communityPostId = communityPostId;
+    public void setCommunity_post_id(int community_post_id) {
+        this.community_post_id = community_post_id;
     }
 
     /**
-     * è·å–0:å›¾ç‰‡ï¼Œ1:è§†é¢‘
+     * »ñÈ¡0:Í¼Æ¬£¬1:ÊÓÆµ
      *
-     * @return community_post_item_type - 0:å›¾ç‰‡ï¼Œ1:è§†é¢‘
+     * @return community_post_item_type - 0:Í¼Æ¬£¬1:ÊÓÆµ
      */
-    public int getCommunityPostItemType() {
-        return communityPostItemType;
+    public int getCommunity_post_item_type() {
+        return community_post_item_type;
     }
 
     /**
-     * è®¾ç½®0:å›¾ç‰‡ï¼Œ1:è§†é¢‘
+     * ÉèÖÃ0:Í¼Æ¬£¬1:ÊÓÆµ
      *
-     * @param communityPostItemType 0:å›¾ç‰‡ï¼Œ1:è§†é¢‘
+     * @param communityPostItemType 0:Í¼Æ¬£¬1:ÊÓÆµ
      */
-    public void setCommunityPostItemType(int communityPostItemType) {
-        this.communityPostItemType = communityPostItemType;
+    public void setCommunity_post_item_type(int community_post_item_type) {
+        this.community_post_item_type = community_post_item_type;
     }
 
     /**
      * @return community_post_item_url
      */
-    public String getCommunityPostItemUrl() {
-        return communityPostItemUrl;
+    public String getCommunity_post_item_url() {
+        return community_post_item_url;
     }
 
     /**
      * @param communityPostItemUrl
      */
-    public void setCommunityPostItemUrl(String communityPostItemUrl) {
-        this.communityPostItemUrl = communityPostItemUrl;
+    public void setCommunity_post_item_url(String community_post_item_url) {
+        this.community_post_item_url = community_post_item_url;
     }
 }

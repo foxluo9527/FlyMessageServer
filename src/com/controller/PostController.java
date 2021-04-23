@@ -36,7 +36,7 @@ public class PostController {
         CommunityPost post = new CommunityPost();
         post.setCommunityPostContent(content);
         post.setCommunityPostState(1);//不用审核
-        post.setuId(token.getUser().getU_id());
+        post.setU_id(token.getUser().getU_id());
         post.setCreateTime(new Date(System.currentTimeMillis()));
         return postService.addPost(post);
     }
@@ -96,7 +96,7 @@ public class PostController {
      * @param loginToken
      * @return
      */
-    @RequestMapping(value = "/delPostItem",
+    @RequestMapping(value = "/delPost",
             produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String delPost(int postId, String loginToken) {
@@ -213,6 +213,21 @@ public class PostController {
         return postService.delPostComment(postCommentId, token.getUser().getU_id());
     }
     /**
+     * 删除评论回复
+     *
+     * @param replyId
+     * @param loginToken
+     * @return
+     */
+    @RequestMapping(value = "/delCommentReply",
+            method = RequestMethod.GET,
+            produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String delCommentReply(int replyId, String loginToken) {
+        Token token = TokenUtil.getTokenUser(loginToken);
+        return postService.delCommentReply(replyId, token.getUser().getU_id());
+    }
+    /**
      * 点赞帖子评论
      *
      * @param postCommentId
@@ -247,6 +262,7 @@ public class PostController {
      * 回复帖子评论
      *
      * @param postCommentId
+     * @param replyId >0为对回复的回复
      * @param content
      * @param loginToken
      * @return
@@ -254,8 +270,8 @@ public class PostController {
     @RequestMapping(value = "/replyPostComment",
             produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String replyPostComment(int postCommentId, String content, String loginToken) {
+    public String replyPostComment(int postCommentId,int replyId, String content, String loginToken) {
         Token token = TokenUtil.getTokenUser(loginToken);
-        return postService.replyPostComment(postCommentId, content, token.getUser().getU_id());
+        return postService.replyPostComment(postCommentId,replyId,content, token.getUser().getU_id());
     }
 }

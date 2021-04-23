@@ -3,67 +3,67 @@ package com.po;
 import java.util.Date;
 
 public class CommunityPostZan {
-    private int communityPostZanId;
+    private int community_post_zan_id;
 
-    private int communityPostId;
+    private int community_post_id;
 
-    private int userId;
+    private int user_id;
 
-    private Date createTime;
+    private Date create_time;
 
     /**
      * @return community_post_zan_id
      */
-    public int getCommunityPostZanId() {
-        return communityPostZanId;
+    public int getCommunity_post_zan_id() {
+        return community_post_zan_id;
     }
 
     /**
-     * @param communityPostZanId
+     * @param community_post_zan_id
      */
-    public void setCommunityPostZanId(int communityPostZanId) {
-        this.communityPostZanId = communityPostZanId;
+    public void setCommunity_post_zan_id(int community_post_zan_id) {
+        this.community_post_zan_id = community_post_zan_id;
     }
 
     /**
      * @return community_post_id
      */
-    public int getCommunityPostId() {
-        return communityPostId;
+    public int getCommunity_post_id() {
+        return community_post_id;
     }
 
     /**
-     * @param communityPostId
+     * @param community_post_id
      */
-    public void setCommunityPostId(int communityPostId) {
-        this.communityPostId = communityPostId;
+    public void setCommunity_post_id(int community_post_id) {
+        this.community_post_id = community_post_id;
     }
 
     /**
      * @return user_id
      */
-    public int getUserId() {
-        return userId;
+    public int getUser_id() {
+        return user_id;
     }
 
     /**
-     * @param userId
+     * @param user_id
      */
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     /**
      * @return create_time
      */
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreate_time() {
+        return create_time;
     }
 
     /**
-     * @param createTime
+     * @param create_time
      */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
 }

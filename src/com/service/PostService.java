@@ -27,11 +27,13 @@ public interface PostService {
 
     String delPostComment(int postCommentId, int u_id);
 
+    String delCommentReply(int replyId, int u_id);
+
     String zanPostComment(int postCommentId, int u_id);
 
     String cancelZanPostComment(int postCommentId, int u_id);
 
-    String replyPostComment(int postCommentId, String content, int u_id);
+    String replyPostComment(int postCommentId,int replyId, String content, int u_id);
 
     String getPost(int postId, int u_id);
 }

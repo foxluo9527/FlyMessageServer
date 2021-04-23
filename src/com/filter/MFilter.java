@@ -72,7 +72,7 @@ public class MFilter implements Filter {
 			if (loginToken!=null) {
 				if (loginToken.getEndTime()<new Date().getTime()) {
 					result.put("code", 512);
-					result.put("msg", "ç™»å½•è¶…æ—¶ï¼Œè¯·é‡æ–°ç™»å½•");
+					result.put("msg", "µÇÂ¼³¬Ê±£¬ÇëÖØÐÂµÇÂ¼");
 				}else {
 					TokenUtil.resetTimeOut(loginToken.getTokenString(), 60*6);
 					chain.doFilter(request, response);
@@ -80,7 +80,7 @@ public class MFilter implements Filter {
 				}
 			}else {
 				result.put("code", 511);
-				result.put("msg", "è¯·å…ˆç™»å½•");
+				result.put("msg", "ÇëÏÈµÇÂ¼");
 			}
 			PrintWriter out=response.getWriter();
 			out.print(result);

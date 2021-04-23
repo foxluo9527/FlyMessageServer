@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPost.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPostComment.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPostCommentReply.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPostCommentZan.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPostItem.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPostZan.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPost.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPostComment.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPostCommentReply.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPostCommentZan.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPostItem.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/po/CommunityPostZan.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/com/service/impl/PostServiceImpl.java" charset="UTF-8" />
     <file url="PROJECT" charset="GBK" />
   </component>

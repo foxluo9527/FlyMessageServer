@@ -3,150 +3,160 @@ package com.po;
 import java.util.Date;
 
 public class CommunityPostCommentReply {
-    private int communityPostCommentReplyId;
+    private int community_post_comment_reply_id;
 
-    private int communityPostCommentId;
-
-    /**
-     * 鍥炲浜篿d
-     */
-    private int sendUId;
-
-    private String sendUName;
-
-    private String sendUHead;
+    private int community_post_comment_id;
 
     /**
-     * 琚洖澶嶄汉id
+     * 回复人id
      */
-    private int replyUId;
+    private int send_u_id;
 
-    private String replyUName;
+    private String send_u_nick_name;
 
-    private String replyContent;
+    private String send_u_head;
+
+    private String send_u_name;
+    
+    /**
+     * 被回复人id
+     */
+    private int reply_u_id;
+
+    private String reply_u_name;
+
+    private String reply_content;
 
     private String state;
 
-    private Date createTime;
+    private Date create_time;
 
     /**
      * @return community_post_comment_reply_id
      */
-    public int getCommunityPostCommentReplyId() {
-        return communityPostCommentReplyId;
+    public int getCommunity_post_comment_reply_id() {
+        return community_post_comment_reply_id;
     }
 
     /**
-     * @param communityPostCommentReplyId
+     * @param community_post_comment_reply_id
      */
-    public void setCommunityPostCommentReplyId(int communityPostCommentReplyId) {
-        this.communityPostCommentReplyId = communityPostCommentReplyId;
+    public void setCommunity_post_comment_reply_id(int community_post_comment_reply_id) {
+        this.community_post_comment_reply_id = community_post_comment_reply_id;
     }
 
     /**
      * @return community_post_comment_id
      */
-    public int getCommunityPostCommentId() {
-        return communityPostCommentId;
+    public int getCommunity_post_comment_id() {
+        return community_post_comment_id;
     }
 
     /**
-     * @param communityPostCommentId
+     * @param community_post_comment_id
      */
-    public void setCommunityPostCommentId(int communityPostCommentId) {
-        this.communityPostCommentId = communityPostCommentId;
+    public void setCommunity_post_comment_id(int community_post_comment_id) {
+        this.community_post_comment_id = community_post_comment_id;
     }
 
-    /**
-     * 鑾峰彇鍥炲浜篿d
+    public String getSend_u_nick_name() {
+		return send_u_nick_name;
+	}
+
+	public void setSend_u_nick_name(String send_u_nick_name) {
+		this.send_u_nick_name = send_u_nick_name;
+	}
+
+	/**
+     * 获取回复人id
      *
-     * @return send_u_id - 鍥炲浜篿d
+     * @return send_u_id - 回复人id
      */
-    public int getSendUId() {
-        return sendUId;
+    public int getSend_u_id() {
+        return send_u_id;
     }
 
     /**
-     * 璁剧疆鍥炲浜篿d
+     * 设置回复人id
      *
-     * @param sendUId 鍥炲浜篿d
+     * @param send_u_id 回复人id
      */
-    public void setSendUId(int sendUId) {
-        this.sendUId = sendUId;
+    public void setSend_u_id(int send_u_id) {
+        this.send_u_id = send_u_id;
     }
 
     /**
      * @return send_u_name
      */
-    public String getSendUName() {
-        return sendUName;
+    public String getSend_u_name() {
+        return send_u_name;
     }
 
     /**
-     * @param sendUName
+     * @param send_u_name
      */
-    public void setSendUName(String sendUName) {
-        this.sendUName = sendUName;
+    public void setSend_u_name(String send_u_name) {
+        this.send_u_name = send_u_name;
     }
 
     /**
      * @return send_u_head
      */
-    public String getSendUHead() {
-        return sendUHead;
+    public String getSend_u_head() {
+        return send_u_head;
     }
 
     /**
-     * @param sendUHead
+     * @param send_u_head
      */
-    public void setSendUHead(String sendUHead) {
-        this.sendUHead = sendUHead;
+    public void setSend_u_head(String send_u_head) {
+        this.send_u_head = send_u_head;
     }
 
     /**
-     * 鑾峰彇琚洖澶嶄汉id
+     * 获取被回复人id
      *
-     * @return reply_u_id - 琚洖澶嶄汉id
+     * @return reply_u_id - 被回复人id
      */
-    public int getReplyUId() {
-        return replyUId;
+    public int getReply_u_id() {
+        return reply_u_id;
     }
 
     /**
-     * 璁剧疆琚洖澶嶄汉id
+     * 设置被回复人id
      *
-     * @param replyUId 琚洖澶嶄汉id
+     * @param reply_u_id 被回复人id
      */
-    public void setReplyUId(int replyUId) {
-        this.replyUId = replyUId;
+    public void setReply_u_id(int reply_u_id) {
+        this.reply_u_id = reply_u_id;
     }
 
     /**
      * @return reply_u_name
      */
-    public String getReplyUName() {
-        return replyUName;
+    public String getReply_u_name() {
+        return reply_u_name;
     }
 
     /**
-     * @param replyUName
+     * @param reply_u_name
      */
-    public void setReplyUName(String replyUName) {
-        this.replyUName = replyUName;
+    public void setReply_u_name(String reply_u_name) {
+        this.reply_u_name = reply_u_name;
     }
 
     /**
-     * @return reply_content
+     * @return reply__content
      */
-    public String getReplyContent() {
-        return replyContent;
+    public String getReply_content() {
+        return reply_content;
     }
 
     /**
-     * @param replyContent
+     * @param reply_content
      */
-    public void setReplyContent(String replyContent) {
-        this.replyContent = replyContent;
+    public void setReply_content(String reply_content) {
+        this.reply_content = reply_content;
     }
 
     /**
@@ -164,16 +174,16 @@ public class CommunityPostCommentReply {
     }
 
     /**
-     * @return create_time
+     * @return create__time
      */
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreate_time() {
+        return create_time;
     }
 
     /**
-     * @param createTime
+     * @param create_time
      */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
 }

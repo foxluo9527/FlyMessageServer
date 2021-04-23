@@ -4,177 +4,183 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class CommunityPost {
-    private int communityPostId;
-    private int uId;
+    private int community_post_id;
+    private int u_id;
     /**
-     * å¸–å­æ–‡ç« å†…å®¹
+     * Ìû×ÓÎÄÕÂÄÚÈİ
      */
-    private String communityPostContent;
+    private String community_post_content;
 
     /**
-     * 0:æœªå®¡æ ¸,1:å®¡æ ¸å®Œæˆ,2:å®¡æ ¸å¤±è´¥,3:å·²å°ç¦
+     * 0:Î´ÉóºË,1:ÉóºËÍê³É,2:ÉóºËÊ§°Ü,3:ÒÑ·â½û
      */
-    private int communityPostState;
+    private int community_post_state;
 
     /**
-     * å½“å‰ç”¨æˆ·å¯¹è¯¥è´´çš„ç‚¹èµçŠ¶æ€
-     * 0:æœªç‚¹èµ,1:å·²ç‚¹èµ
+     * µ±Ç°ÓÃ»§¶Ô¸ÃÌùµÄµãÔŞ×´Ì¬
+     * 0:Î´µãÔŞ,1:ÒÑµãÔŞ
      */
-    private int zanState;
+    private int zan_state;
 
-    private int shareCount;
+    private int share_count;
 
-    private int zanCount;
+    private int zan_count;
 
-    private int showCount;
+    private int show_count;
 
-    private int commentCount;
-
-    private Date createTime;
+    private int comment_count;
+    
+    private String u_name;
+    
+    private String u_nick_name;
+    
+    private String u_head;
+    
+    private Date create_time;
 
     /**
-     * å¸–å­é™„å¸¦èµ„æºé¡¹(ä¹å®«æ ¼å›¾ç‰‡/è§†é¢‘)
+     * Ìû×Ó¸½´ø×ÊÔ´Ïî(¾Å¹¬¸ñÍ¼Æ¬/ÊÓÆµ)
      */
     private ArrayList<CommunityPostItem> postItems;
 
     /**
-     * å¸–å­å›å¤
+     * Ìû×Ó»Ø¸´
      */
     private ArrayList<CommunityPostComment> comments;
 
     /**
-     * å¸–å­èµ
+     * Ìû×ÓÔŞ
      */
     private ArrayList<CommunityPostZan> zans;
 
     /**
      * @return community_post_id
      */
-    public int getCommunityPostId() {
-        return communityPostId;
+    public int getCommunity_post_id() {
+        return community_post_id;
     }
-
+    
     /**
      * @param communityPostId
      */
-    public void setCommunityPostId(int communityPostId) {
-        this.communityPostId = communityPostId;
+    public void setCommunity_post_id(int community_post_id) {
+        this.community_post_id = community_post_id;
     }
 
-    public int getuId() {
-        return uId;
+    public int getU_id() {
+        return u_id;
     }
 
-    public void setuId(int uId) {
-        this.uId = uId;
+    public void setU_id(int u_id) {
+        this.u_id = u_id;
     }
 
-    public int getZanState() {
-        return zanState;
+    public int getZan_state() {
+        return zan_state;
     }
 
-    public void setZanState(int zanState) {
-        this.zanState = (zanState > 0 ? 1 : 0);
+    public void setZan_state(int zan_state) {
+        this.zan_state = (zan_state > 0 ? 1 : 0);
     }
 
     /**
-     * è·å–å¸–å­æ–‡ç« å†…å®¹
+     * »ñÈ¡Ìû×ÓÎÄÕÂÄÚÈİ
      *
-     * @return community_post_content - å¸–å­æ–‡ç« å†…å®¹
+     * @return community_post_content - Ìû×ÓÎÄÕÂÄÚÈİ
      */
     public String getCommunityPostContent() {
-        return communityPostContent;
+        return community_post_content;
     }
 
     /**
-     * è®¾ç½®å¸–å­æ–‡ç« å†…å®¹
+     * ÉèÖÃÌû×ÓÎÄÕÂÄÚÈİ
      *
-     * @param communityPostContent å¸–å­æ–‡ç« å†…å®¹
+     * @param communityPostContent Ìû×ÓÎÄÕÂÄÚÈİ
      */
     public void setCommunityPostContent(String communityPostContent) {
-        this.communityPostContent = communityPostContent;
+        this.community_post_content = communityPostContent;
     }
 
     /**
-     * è·å–0:æœªå®¡æ ¸,1:å®¡æ ¸å®Œæˆ,2:å®¡æ ¸å¤±è´¥,3:å·²å°ç¦
+     * »ñÈ¡0:Î´ÉóºË,1:ÉóºËÍê³É,2:ÉóºËÊ§°Ü,3:ÒÑ·â½û
      *
-     * @return community_post_state - 0:æœªå®¡æ ¸,1:å®¡æ ¸å®Œæˆ,2:å®¡æ ¸å¤±è´¥,3:å·²å°ç¦
+     * @return community_post_state - 0:Î´ÉóºË,1:ÉóºËÍê³É,2:ÉóºËÊ§°Ü,3:ÒÑ·â½û
      */
     public int getCommunityPostState() {
-        return communityPostState;
+        return community_post_state;
     }
 
     /**
-     * è®¾ç½®0:æœªå®¡æ ¸,1:å®¡æ ¸å®Œæˆ,2:å®¡æ ¸å¤±è´¥,3:å·²å°ç¦
+     * ÉèÖÃ0:Î´ÉóºË,1:ÉóºËÍê³É,2:ÉóºËÊ§°Ü,3:ÒÑ·â½û
      *
-     * @param communityPostState 0:æœªå®¡æ ¸,1:å®¡æ ¸å®Œæˆ,2:å®¡æ ¸å¤±è´¥,3:å·²å°ç¦
+     * @param communityPostState 0:Î´ÉóºË,1:ÉóºËÍê³É,2:ÉóºËÊ§°Ü,3:ÒÑ·â½û
      */
     public void setCommunityPostState(int communityPostState) {
-        this.communityPostState = communityPostState;
+        this.community_post_state = communityPostState;
     }
 
     /**
      * @return share_count
      */
     public int getShareCount() {
-        return shareCount;
+        return share_count;
     }
 
     /**
      * @param shareCount
      */
     public void setShareCount(int shareCount) {
-        this.shareCount = shareCount;
+        this.share_count = shareCount;
     }
 
     /**
      * @return zan_count
      */
     public int getZanCount() {
-        return zanCount;
+        return zan_count;
     }
 
     /**
      * @param zanCount
      */
     public void setZanCount(int zanCount) {
-        this.zanCount = zanCount;
+        this.zan_count = zanCount;
     }
 
     /**
      * @return show_count
      */
     public int getShowCount() {
-        return showCount;
+        return show_count;
     }
 
     /**
      * @param showCount
      */
     public void setShowCount(int showCount) {
-        this.showCount = showCount;
+        this.show_count = showCount;
     }
 
     /**
      * @return create_time
      */
     public Date getCreateTime() {
-        return createTime;
+        return create_time;
     }
 
     /**
      * @param createTime
      */
     public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+        this.create_time = createTime;
     }
 
     public int getCommentCount() {
-        return commentCount;
+        return comment_count;
     }
 
     public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
+        this.comment_count = commentCount;
     }
 
     public ArrayList<CommunityPostItem> getPostItems() {
@@ -200,4 +206,29 @@ public class CommunityPost {
     public void setZans(ArrayList<CommunityPostZan> zans) {
         this.zans = zans;
     }
+
+	public String getU_name() {
+		return u_name;
+	}
+
+	public void setU_name(String u_name) {
+		this.u_name = u_name;
+	}
+
+	public String getU_head() {
+		return u_head;
+	}
+
+	public void setU_head(String u_head) {
+		this.u_head = u_head;
+	}
+
+	public String getU_nick_name() {
+		return u_nick_name;
+	}
+
+	public void setU_nick_name(String u_nick_name) {
+		this.u_nick_name = u_nick_name;
+	}
+    
 }

@@ -72,6 +72,9 @@ public class UserServiceImpl implements UserService {
     public String login(String username, String pass) {
         // TODO Auto-generated method stub
         JSONObject result = new JSONObject();
+        if(user==null) {
+        	user=new UserBean();
+        }
         user.setU_name(username);
         user.setU_phone(username);
         user.setU_pass(Base64Util.encode(pass.getBytes()));
@@ -402,46 +405,54 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getUserByName(int u_id, String u_name) {
         // TODO Auto-generated method stub
-        JSONObject result = new JSONObject();
+        JSONObject result=new JSONObject();
         UserBean user = userDao.getUserByName(u_name);
-        if (user != null && userDao.checkShowMsgPrivacy(user.getU_id()) != 1) {
+        if (user!=null&&userDao.checkShowMsgPrivacy(user.getU_id())!=1) {
+            JSONObject resultUser=(JSONObject) JSONObject.toJSON(user);
+            friend.setF_object_u_id(user.getU_id());
+            friend.setF_source_u_id(u_id);
+            int isFriend=friendDao.checkFriendRelationship(friend);
+            if (isFriend>0) {
+                resultUser.put("isFriend", true);
+            }else {
+                resultUser.put("isFriend", false);
+            }
+            resultUser.remove("u_pass");
+            resultUser.remove("u_phone");
+            resultUser.remove("u_forbidden");
+            resultUser.put("isOnline", msgScoketHandle.getUserOnlineState(friend.getF_object_u_id()));
             result.put("code", 200);
-            result.put("user", initUserResult(u_id));
+            result.put("user", resultUser);
             result.put("msg", "获取用户信息成功");
-        } else {
+        }else {
             result.put("code", 500);
             result.put("msg", "获取用户信息失败");
         }
         return result.toJSONString();
     }
-
-    private String initUserResult(int u_id) {
-        JSONObject resultUser = (JSONObject) JSONObject.toJSON(user);
-        friend.setF_object_u_id(user.getU_id());
-        friend.setF_source_u_id(u_id);
-        int isFriend = friendDao.checkFriendRelationship(friend);
-        if (isFriend > 0) {
-            resultUser.put("isFriend", true);
-        } else {
-            resultUser.put("isFriend", false);
-        }
-        resultUser.remove("u_pass");
-        resultUser.remove("u_phone");
-        resultUser.remove("u_forbidden");
-        resultUser.put("isOnline", msgScoketHandle.getUserOnlineState(friend.getF_object_u_id()));
-        return (String) JSONObject.toJSON(resultUser);
-    }
-
     @Override
     public String getUserByID(int u_id, int object_u_id) {
         // TODO Auto-generated method stub
-        JSONObject result = new JSONObject();
+        JSONObject result=new JSONObject();
         UserBean user = userDao.getUserById(object_u_id);
-        if (user != null) {
+        if (user!=null) {
+            JSONObject resultUser=(JSONObject) JSONObject.toJSON(user);
+            friend.setF_object_u_id(user.getU_id());
+            friend.setF_source_u_id(u_id);
+            int isFriend=friendDao.checkFriendRelationship(friend);
+            if (isFriend>0) {
+                resultUser.put("isFriend", true);
+            }else {
+                resultUser.put("isFriend", false);
+            }
+            resultUser.remove("u_pass");
+            resultUser.remove("u_phone");
+            resultUser.remove("u_forbidden");
+            resultUser.put("isOnline", msgScoketHandle.getUserOnlineState(friend.getF_object_u_id()));
             result.put("code", 200);
-            result.put("user", initUserResult(u_id));
+            result.put("user", resultUser);
             result.put("msg", "获取用户信息成功");
-        } else {
+        }else {
             result.put("code", 500);
             result.put("msg", "获取用户信息失败");
         }

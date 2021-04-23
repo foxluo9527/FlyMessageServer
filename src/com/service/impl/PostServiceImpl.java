@@ -33,7 +33,7 @@ public class PostServiceImpl implements PostService {
             int id = communityPostDao.addPost(post);
             if (id > 0) {
                 result.put("code", 200);
-                result.put("postId", id);
+                result.put("postId", post.getCommunity_post_id());
                 result.put("msg", "发表帖子成功");
             }
         } catch (Exception e) {
@@ -69,9 +69,9 @@ public class PostServiceImpl implements PostService {
                     e.printStackTrace();
                 }
                 CommunityPostItem item = new CommunityPostItem();
-                item.setCommunityPostItemUrl(fileUrl);
-                item.setCommunityPostId(postId);
-                item.setCommunityPostItemType(0);//暂时只能上传图片
+                item.setCommunity_post_item_url(fileUrl);
+                item.setCommunity_post_id(postId);
+                item.setCommunity_post_item_type(0);//暂时只能上传图片
                 if (communityPostDao.addPostItem(item) > 0) {
                     result.put("code", 200);
                     result.put("msg", "上传帖子附图成功");
@@ -95,9 +95,9 @@ public class PostServiceImpl implements PostService {
         CommunityPost post = communityPostDao.getPost(postId);
         CommunityPostItem item = communityPostDao.getPostItem(postItemId);
         try {
-            if (item != null && post != null && post.getuId() == u_id && communityPostDao.delCommunityPostItem(postItemId) > 0) {
+            if (item != null && post != null && post.getU_id() == u_id && communityPostDao.delCommunityPostItem(postItemId) > 0) {
                 String realpath = "C:\\upload/file/postFile" +
-                        item.getCommunityPostItemUrl().substring("http://www.foxluo.cn/FlyMessage/file/postFile".length());
+                        item.getCommunity_post_item_url().substring("http://www.foxluo.cn/FlyMessage/file/postFile".length());
                 File file = new File(realpath);
                 file.delete();
                 result.put("code", 200);
@@ -117,33 +117,32 @@ public class PostServiceImpl implements PostService {
     public String delPost(int postId, int u_id) {
         JSONObject result = new JSONObject();
         CommunityPost post = new CommunityPost();
-        post.setuId(u_id);
-        post.setCommunityPostId(postId);
+        post.setU_id(u_id);
+        post.setCommunity_post_id(postId);
         if (communityPostDao.delPost(post) > 0) {
             //删除帖子所有附图
             ArrayList<CommunityPostItem> items = (ArrayList<CommunityPostItem>) communityPostDao.getAllCommunityPostItem(postId);
             for (CommunityPostItem item : items) {
-                delPostItem(postId, item.getCommunityPostItemId(), u_id);
+                delPostItem(postId, item.getCommunity_post_item_id(), u_id);
             }
             //删除帖子所有评论
             ArrayList<CommunityPostComment> comments = (ArrayList<CommunityPostComment>) communityPostDao.getPostComments(postId);
             for (CommunityPostComment comment : comments) {
                 //删除评论下所有点赞记录
-                ArrayList<CommunityPostCommentZan> commentZans = (ArrayList<CommunityPostCommentZan>) communityPostDao.getPostCommentZans(comment.getCommunityPostCommentId());
+                ArrayList<CommunityPostCommentZan> commentZans = (ArrayList<CommunityPostCommentZan>) communityPostDao.getPostCommentZans(comment.getCommunity_post_comment_id());
                 for (CommunityPostCommentZan commentZan : commentZans) {
-                    communityPostDao.delPostCommentZan(commentZan.getCommunityPostCommentZanId());
+                    communityPostDao.delPostCommentZan(commentZan.getCommunity_post_comment_zan_id());
                 }
                 //删除评论下所有回复
-                ArrayList<CommunityPostCommentReply> replies = (ArrayList<CommunityPostCommentReply>) communityPostDao.getPostCommentReplies(comment.getCommunityPostCommentId());
+                ArrayList<CommunityPostCommentReply> replies = (ArrayList<CommunityPostCommentReply>) communityPostDao.getPostCommentReplies(comment.getCommunity_post_comment_id());
                 for (CommunityPostCommentReply reply : replies) {
-                    communityPostDao.delPostCommentReply(reply.getCommunityPostCommentReplyId());
+                    communityPostDao.delPostCommentReply(reply.getCommunity_post_comment_reply_id());
                 }
-                delPostComment(comment.getCommunityPostCommentId(), u_id);
             }
             //删除所有帖子点赞记录
             ArrayList<CommunityPostZan> postZans = (ArrayList<CommunityPostZan>) communityPostDao.getPostZans(postId);
             for (CommunityPostZan postZan : postZans) {
-                communityPostDao.delPostZan(postZan.getCommunityPostZanId());
+                communityPostDao.delPostZan(postZan.getCommunity_post_zan_id());
             }
             result.put("code", 200);
             result.put("msg", "删除帖子成功");
@@ -162,10 +161,14 @@ public class PostServiceImpl implements PostService {
         if (posts != null) {
             for (CommunityPost post : posts) {
                 CommunityPost post1 = new CommunityPost();
-                post1.setuId(u_id);
-                post1.setCommunityPostId(post.getCommunityPostId());
-                post.setPostItems((ArrayList<CommunityPostItem>) communityPostDao.getAllCommunityPostItem(post.getCommunityPostId()));
-                post.setZanState(communityPostDao.getPostZanState(post1));
+                post1.setU_id(u_id);
+                post1.setCommunity_post_id(post.getCommunity_post_id());
+                post.setPostItems((ArrayList<CommunityPostItem>) communityPostDao.getAllCommunityPostItem(post.getCommunity_post_id()));
+                post.setZan_state(communityPostDao.getPostZanState(post1));
+                UserBean user=userDao.getUserById(post.getU_id());
+                post.setU_name(user.getU_name());
+                post.setU_nick_name(user.getU_nick_name());
+                post.setU_head(user.getU_head_img());
             }
             result.put("code", 200);
             result.put("msg", "获取社区帖子成功");
@@ -183,7 +186,15 @@ public class PostServiceImpl implements PostService {
         ArrayList<CommunityPost> posts = (ArrayList<CommunityPost>) communityPostDao.getUserPosts(query);
         if (posts != null) {
             for (CommunityPost post : posts) {
-                post.setPostItems((ArrayList<CommunityPostItem>) communityPostDao.getAllCommunityPostItem(post.getCommunityPostId()));
+                post.setPostItems((ArrayList<CommunityPostItem>) communityPostDao.getAllCommunityPostItem(post.getCommunity_post_id()));
+                CommunityPost post1 = new CommunityPost();
+                post1.setU_id(u_id);
+                post1.setCommunity_post_id(post.getCommunity_post_id());
+                post.setZan_state(communityPostDao.getPostZanState(post1));
+                UserBean user=userDao.getUserById(post.getU_id());
+                post.setU_name(user.getU_name());
+                post.setU_nick_name(user.getU_nick_name());
+                post.setU_head(user.getU_head_img());
             }
             result.put("code", 200);
             result.put("msg", "获取用户社区主页帖子成功");
@@ -217,11 +228,21 @@ public class PostServiceImpl implements PostService {
         JSONObject result = new JSONObject();
         CommunityPost post = communityPostDao.getPost(postId);
         if (post != null) {
+            ArrayList<CommunityPostZan> postZans = (ArrayList<CommunityPostZan>) communityPostDao.getPostZans(postId);
+            for(CommunityPostZan postZan:postZans) {
+                if(postZan.getUser_id()==u_id) {
+                    //已经点过赞了
+                    result.put("code", 500);
+                    result.put("msg", "点赞帖子失败:您已点赞，请勿重复");
+                    return result.toJSONString();
+                }
+            }
             post.setZanCount(post.getZanCount() + 1);
-            post.setZanState(1);
+            post.setZan_state(1);
             CommunityPostZan zan = new CommunityPostZan();
-            zan.setCreateTime(new Date());
-            zan.setCommunityPostId(postId);
+            zan.setCreate_time(new Date());
+            zan.setCommunity_post_id(postId);
+            zan.setUser_id(u_id);
             if (communityPostDao.zanPost(zan) > 0 && communityPostDao.updatePost(post) > 0) {
                 result.put("code", 200);
                 result.put("msg", "点赞帖子成功");
@@ -241,8 +262,8 @@ public class PostServiceImpl implements PostService {
         JSONObject result = new JSONObject();
         CommunityPost post = communityPostDao.getPost(postId);
         if (post != null) {
-            post.setZanState(0);
-            post.setuId(u_id);
+            post.setZan_state(0);
+            post.setU_id(u_id);
             post.setZanCount(Math.max(post.getZanCount() - 1, 0));
             if (communityPostDao.cancelZanPost(post) > 0 && communityPostDao.updatePost(post) > 0) {
                 result.put("code", 200);
@@ -267,11 +288,13 @@ public class PostServiceImpl implements PostService {
             post.setCommentCount(post.getCommentCount() + 1);
             CommunityPostComment comment = new CommunityPostComment();
             comment.setState(1);//暂时不审核
-            comment.setCommunityPostCommentContent(content);
-            comment.setCommunityPostId(postId);
-            comment.setCreateTime(new Date());
-            comment.setSendUHead(sendUser.getU_head_img());
-            comment.setSendUName(sendUser.getU_nick_name());
+            comment.setCommunity_post_comment_content(content);
+            comment.setCommunity_post_id(postId);
+            comment.setCreate_time(new Date());
+            comment.setSend_u_id(u_id);
+            comment.setSend_u_head(sendUser.getU_head_img());
+            comment.setSend_u_name(sendUser.getU_name());
+            comment.setSend_u_nick_name(sendUser.getU_nick_name());
             if (communityPostDao.addPostComment(comment) > 0 && communityPostDao.updatePost(post) > 0) {
                 result.put("code", 200);
                 result.put("msg", "评论帖子成功");
@@ -291,14 +314,24 @@ public class PostServiceImpl implements PostService {
         JSONObject result = new JSONObject();
         CommunityPostComment comment = communityPostDao.getPostComment(postCommentId);
         if (comment != null) {
-            comment.setZanNum(comment.getZanNum()+1);
-            comment.setHotValue(comment.getHotValue() + 1);
+            ArrayList<CommunityPostCommentZan> commentZans=
+                    (ArrayList<CommunityPostCommentZan>)communityPostDao.getPostCommentZans(postCommentId);
+            for (CommunityPostCommentZan commentZan : commentZans) {
+                if(commentZan.getZan_u_id()==u_id) {
+                    result.put("code", 500);
+                    result.put("msg", "点赞评论失败:您已点赞，请勿重复");
+                    return result.toJSONString();
+                }
+            }
+            comment.setZan_num(comment.getZan_num()+1);
+            comment.setHot_value(comment.getHot_value() + 1);
             CommunityPostCommentZan zan = new CommunityPostCommentZan();
-            zan.setZanUId(u_id);
-            zan.setCommunityPostCommentId(postCommentId);
+            zan.setZan_u_id(u_id);
+            zan.setCommunity_post_comment_id(postCommentId);
             UserBean zanUser = userDao.getUserById(u_id);
-            zan.setZanUHead(zanUser.getU_head_img());
-            zan.setZanUName(zanUser.getU_nick_name());
+            zan.setZan_u_head(zanUser.getU_head_img());
+            zan.setZan_u_name(zanUser.getU_nick_name());
+            zan.setCreate_time(new Date());
             if (communityPostDao.zanPostComment(zan) > 0 && communityPostDao.updatePostComment(comment) > 0) {
                 result.put("code", 200);
                 result.put("msg", "点赞评论成功");
@@ -318,11 +351,11 @@ public class PostServiceImpl implements PostService {
         JSONObject result = new JSONObject();
         CommunityPostComment comment = communityPostDao.getPostComment(postCommentId);
         if (comment != null) {
-            comment.setZanNum(comment.getZanNum()-1);
-            comment.setHotValue(comment.getHotValue() - 1);
+            comment.setZan_num(comment.getZan_num()-1);
+            comment.setHot_value(comment.getHot_value() - 1);
             CommunityPostCommentZan zan=new CommunityPostCommentZan();
-            zan.setZanUId(u_id);
-            zan.setCommunityPostCommentId(postCommentId);
+            zan.setZan_u_id(u_id);
+            zan.setCommunity_post_comment_id(postCommentId);
             if (communityPostDao.cancelZanPostComment(zan) > 0 && communityPostDao.updatePostComment(comment) > 0) {
                 result.put("code", 200);
                 result.put("msg", "取消点赞评论成功");
@@ -342,14 +375,14 @@ public class PostServiceImpl implements PostService {
         JSONObject result = new JSONObject();
         try {
             CommunityPostComment comment = communityPostDao.getPostComment(postCommentId);
-            if (comment != null && comment.getSendUId() == u_id) {
-                ArrayList<CommunityPostCommentReply> replies = (ArrayList<CommunityPostCommentReply>) communityPostDao.getPostCommentReplies(comment.getCommunityPostCommentId());
+            if (comment != null && comment.getSend_u_id() == u_id) {
+                ArrayList<CommunityPostCommentReply> replies = (ArrayList<CommunityPostCommentReply>) communityPostDao.getPostCommentReplies(comment.getCommunity_post_comment_id());
                 for (CommunityPostCommentReply reply : replies) {
-                    communityPostDao.delPostCommentReply(reply.getCommunityPostCommentReplyId());
+                    communityPostDao.delPostCommentReply(reply.getCommunity_post_comment_reply_id());
                 }
-                ArrayList<CommunityPostCommentZan> zans = (ArrayList<CommunityPostCommentZan>) communityPostDao.getPostCommentZans(comment.getCommunityPostCommentId());
+                ArrayList<CommunityPostCommentZan> zans = (ArrayList<CommunityPostCommentZan>) communityPostDao.getPostCommentZans(comment.getCommunity_post_comment_id());
                 for (CommunityPostCommentZan zan : zans) {
-                    communityPostDao.delPostZan(zan.getCommunityPostCommentZanId());
+                    communityPostDao.delPostZan(zan.getCommunity_post_comment_zan_id());
                 }
                 if (communityPostDao.delPostComment(postCommentId) > 0) {
                     result.put("code", 200);
@@ -371,22 +404,32 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public String replyPostComment(int postCommentId, String content, int u_id) {
+    public String replyPostComment(int postCommentId,int replyId,String content, int u_id) {
         JSONObject result = new JSONObject();
         CommunityPostComment comment = communityPostDao.getPostComment(postCommentId);
         if (comment != null) {
             UserBean sendUser = userDao.getUserById(u_id);
-            comment.setHotValue(comment.getHotValue() + 1);
+            comment.setHot_value(comment.getHot_value() + 1);
             CommunityPostCommentReply reply = new CommunityPostCommentReply();
-            reply.setCommunityPostCommentId(postCommentId);
-            reply.setCreateTime(new Date());
-            reply.setReplyContent(content);
-            reply.setReplyUId(comment.getSendUId());
-            reply.setReplyUName(comment.getSendUName());
-            reply.setSendUHead(comment.getSendUHead());
-            reply.setSendUId(u_id);
-            reply.setSendUHead(sendUser.getU_head_img());
-            reply.setSendUName(sendUser.getU_nick_name());
+            reply.setCommunity_post_comment_id(postCommentId);
+            reply.setCreate_time(new Date());
+            reply.setReply_content(content);
+            if(replyId>0) {
+                //回复回复
+                CommunityPostCommentReply beReply=communityPostDao.getReplyById(replyId);
+                UserBean beReplyUser = userDao.getUserById(beReply.getSend_u_id());
+                reply.setReply_u_id(beReplyUser.getU_id());
+                reply.setReply_u_name(beReplyUser.getU_nick_name());
+            }else {
+                //回复评论
+                UserBean commentUser=userDao.getUserById(comment.getSend_u_id());
+                reply.setReply_u_id(comment.getSend_u_id());
+                reply.setReply_u_name(commentUser.getU_nick_name());
+            }
+            reply.setSend_u_id(u_id);
+            reply.setSend_u_head(sendUser.getU_head_img());
+            reply.setSend_u_name(sendUser.getU_name());
+            reply.setSend_u_nick_name(sendUser.getU_nick_name());
             if (communityPostDao.addPostCommentReply(reply) > 0 && communityPostDao.updatePostComment(comment) > 0) {
                 result.put("code", 200);
                 result.put("msg", "回复评论成功");
@@ -408,20 +451,66 @@ public class PostServiceImpl implements PostService {
             CommunityPost post = communityPostDao.getPost(postId);
             if (post != null) {
                 post.setShowCount(post.getShowCount() + 1);
-                communityPostDao.updatePost(post);
+
                 ArrayList<CommunityPostItem> items = (ArrayList<CommunityPostItem>) communityPostDao.getAllCommunityPostItem(postId);
                 post.setPostItems(items);
+
                 ArrayList<CommunityPostComment> comments = (ArrayList<CommunityPostComment>) communityPostDao.getPostComments(postId);
                 for (CommunityPostComment comment : comments) {
-                    ArrayList<CommunityPostCommentReply> replies = (ArrayList<CommunityPostCommentReply>) communityPostDao.getPostCommentReplies(comment.getCommunityPostCommentId());
+                    UserBean commentUser=userDao.getUserById(comment.getSend_u_id());
+                    if(commentUser!=null) {
+                        comment.setSend_u_head(commentUser.getU_head_img());
+                        comment.setSend_u_nick_name(commentUser.getU_nick_name());
+                        comment.setSend_u_name(commentUser.getU_name());
+                    }else {
+                        comment.setSend_u_nick_name("该用户已注销");
+                        comment.setSend_u_head("http://www.foxluo.cn/FlyMessage/images/userHeads/none.jpg");
+                    }
+                    ArrayList<CommunityPostCommentReply> replies = (ArrayList<CommunityPostCommentReply>) communityPostDao.getPostCommentReplies(comment.getCommunity_post_comment_id());
+                    for (CommunityPostCommentReply reply : replies) {
+                        UserBean replyUser=userDao.getUserById(reply.getSend_u_id());
+                        if(replyUser!=null) {
+                            reply.setSend_u_name(replyUser.getU_name());
+                            reply.setSend_u_nick_name(replyUser.getU_nick_name());
+                            reply.setSend_u_head(replyUser.getU_head_img());
+                        }else {
+                            reply.setSend_u_nick_name("该用户已注销");
+                        }
+                        UserBean repliedUser=userDao.getUserById(reply.getReply_u_id());
+                        if(repliedUser!=null) {
+                            reply.setReply_u_name(repliedUser.getU_nick_name());
+                        }else{
+                            reply.setReply_u_name("该用户已注销");
+                        }
+                    }
+                    ArrayList<CommunityPostCommentZan> commentZans=(ArrayList<CommunityPostCommentZan>)communityPostDao.getPostCommentZans(comment.getCommunity_post_comment_id());
+                    for (CommunityPostCommentZan commentZan : commentZans) {
+                        if(commentZan.getZan_u_id()==u_id) {
+                            comment.setZan_state(1);
+                            break;
+                        }
+                    }
+                    comment.setZans(commentZans);
                     comment.setReplies(replies);
                 }
                 post.setComments(comments);
+                post.setCommentCount(comments.size());
                 ArrayList<CommunityPostZan> postZans = (ArrayList<CommunityPostZan>) communityPostDao.getPostZans(postId);
                 post.setZans(postZans);
+                for(CommunityPostZan postZan:postZans) {
+                    if(postZan.getUser_id()==u_id) {
+                        post.setZan_state(1);
+                        break;
+                    }
+                }
+                UserBean user=userDao.getUserById(post.getU_id());
+                post.setU_name(user.getU_name());
+                post.setU_nick_name(user.getU_nick_name());
+                post.setU_head(user.getU_head_img());
                 result.put("code", 200);
                 result.put("post", JSONObject.toJSON(post));
                 result.put("msg", "获取帖子详情成功");
+                communityPostDao.updatePost(post);
             } else {
                 result.put("code", 500);
                 result.put("msg", "获取帖子详情失败");
@@ -430,6 +519,32 @@ public class PostServiceImpl implements PostService {
             e.printStackTrace();
             result.put("code", 500);
             result.put("msg", "获取帖子详情失败");
+        }
+        return result.toJSONString();
+    }
+
+    @Override
+    public String delCommentReply(int replyId, int u_id) {
+        // TODO Auto-generated method stub
+        JSONObject result = new JSONObject();
+        try {
+            CommunityPostCommentReply reply = communityPostDao.getReplyById(replyId);
+            if (reply != null && reply.getSend_u_id() == u_id) {
+                if (communityPostDao.delPostCommentReply(replyId) > 0) {
+                    result.put("code", 200);
+                    result.put("msg", "删除评论回复成功");
+                } else {
+                    result.put("code", 500);
+                    result.put("msg", "删除评论回复失败");
+                }
+            } else {
+                result.put("code", 500);
+                result.put("msg", "删除评论回复失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("code", 500);
+            result.put("msg", "删除评论回复失败");
         }
         return result.toJSONString();
     }

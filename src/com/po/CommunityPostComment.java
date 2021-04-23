@@ -4,188 +4,209 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class CommunityPostComment {
-    private int communityPostCommentId;
+    private int community_post_comment_id;
 
-    private int communityPostId;
+    private int community_post_id;
 
-    private int sendUId;
+    private int send_u_id;
 
-    private String sendUName;
+    private String send_u_name;
 
-    private String sendUHead;
+    private String send_u_head;
 
-    private String communityPostCommentContent;
+    private String send_u_nick_name;
+    
+    private String community_post_comment_content;
 
+    private int zan_state;
+    
+    
     /**
-     * è¯„è®ºèµ
+     * ÆÀÂÛÔŞ
      */
     private ArrayList<CommunityPostCommentZan> zans;
 
     /**
-     * è¯„è®ºå›å¤
+     * ÆÀÂÛ»Ø¸´
      */
     private ArrayList<CommunityPostCommentReply> replies;
 
     /**
-     * çƒ­åº¦å€¼:ç‚¹èµ+1ï¼Œå›å¤+1
+     * ÈÈ¶ÈÖµ:µãÔŞ+1£¬»Ø¸´+1
      */
-    private int hotValue;
+    private int hot_value;
 
-    private int zanNum;
+    private int zan_num;
 
     /**
-     * 0:å¾…å®¡æ ¸,1:é€šè¿‡,2:æœªé€šè¿‡
+     * 0:´ıÉóºË,1:Í¨¹ı,2:Î´Í¨¹ı
      */
     private int state;
 
-    private Date createTime;
+    private Date create_time;
 
     /**
      * @return community_post_comment_id
      */
-    public int getCommunityPostCommentId() {
-        return communityPostCommentId;
+    public int getCommunity_post_comment_id() {
+        return community_post_comment_id;
     }
 
     /**
      * @param communityPostCommentId
      */
-    public void setCommunityPostCommentId(int communityPostCommentId) {
-        this.communityPostCommentId = communityPostCommentId;
+    public void setCommunity_post_comment_id(int community_post_comment_id) {
+        this.community_post_comment_id = community_post_comment_id;
     }
 
     /**
      * @return community_post_id
      */
-    public int getCommunityPostId() {
-        return communityPostId;
+    public int getCommunity_post_id() {
+        return community_post_id;
     }
 
     /**
      * @param communityPostId
      */
-    public void setCommunityPostId(int communityPostId) {
-        this.communityPostId = communityPostId;
+    public void setCommunity_post_id(int community_post_id) {
+        this.community_post_id = community_post_id;
     }
 
     /**
      * @return send_u_id
      */
-    public int getSendUId() {
-        return sendUId;
+    public int getSend_u_id() {
+        return send_u_id;
     }
 
     /**
      * @param sendUId
      */
-    public void setSendUId(int sendUId) {
-        this.sendUId = sendUId;
+    public void setSend_u_id(int send_u_id) {
+        this.send_u_id = send_u_id;
     }
 
     /**
      * @return send_u_name
      */
-    public String getSendUName() {
-        return sendUName;
+    public String getSend_u_name() {
+        return send_u_name;
     }
 
     /**
      * @param sendUName
      */
-    public void setSendUName(String sendUName) {
-        this.sendUName = sendUName;
+    public void setSend_u_name(String send_u_name) {
+        this.send_u_name = send_u_name;
     }
 
     /**
      * @return send_u_head
      */
-    public String getSendUHead() {
-        return sendUHead;
+    public String getSend_u_head() {
+        return send_u_head;
     }
 
     /**
      * @param sendUHead
      */
-    public void setSendUHead(String sendUHead) {
-        this.sendUHead = sendUHead;
+    public void setSend_u_head(String send_u_head) {
+        this.send_u_head = send_u_head;
     }
 
     /**
      * @return community_post_comment_content
      */
-    public String getCommunityPostCommentContent() {
-        return communityPostCommentContent;
+    public String getCommunity_post_comment_content() {
+        return community_post_comment_content;
     }
 
     /**
      * @param communityPostCommentContent
      */
-    public void setCommunityPostCommentContent(String communityPostCommentContent) {
-        this.communityPostCommentContent = communityPostCommentContent;
+    public void setCommunity_post_comment_content(String community_post_comment_content) {
+        this.community_post_comment_content = community_post_comment_content;
     }
 
     /**
-     * è·å–çƒ­åº¦å€¼:ç‚¹èµ+1ï¼Œå›å¤+1
+     * »ñÈ¡ÈÈ¶ÈÖµ:µãÔŞ+1£¬»Ø¸´+1
      *
-     * @return hot_value - çƒ­åº¦å€¼:ç‚¹èµ+1ï¼Œå›å¤+1
+     * @return hot_value - ÈÈ¶ÈÖµ:µãÔŞ+1£¬»Ø¸´+1
      */
-    public int getHotValue() {
-        return hotValue;
+    public int getHot_value() {
+        return hot_value;
     }
 
-    /**
-     * è®¾ç½®çƒ­åº¦å€¼:ç‚¹èµ+1ï¼Œå›å¤+1
+    public int getZan_state() {
+		return zan_state;
+	}
+
+	public void setZan_state(int zan_state) {
+		this.zan_state = zan_state;
+	}
+
+	/**
+     * ÉèÖÃÈÈ¶ÈÖµ:µãÔŞ+1£¬»Ø¸´+1
      *
-     * @param hotValue çƒ­åº¦å€¼:ç‚¹èµ+1ï¼Œå›å¤+1
+     * @param hotValue ÈÈ¶ÈÖµ:µãÔŞ+1£¬»Ø¸´+1
      */
-    public void setHotValue(int hotValue) {
-        this.hotValue = hotValue;
+    public void setHot_value(int hot_value) {
+        this.hot_value = hot_value;
     }
 
     /**
      * @return zan_num
      */
-    public int getZanNum() {
-        return zanNum;
+    public int getZan_num() {
+        return zan_num;
     }
 
     /**
      * @param zanNum
      */
-    public void setZanNum(int zanNum) {
-        this.zanNum = zanNum;
+    public void setZan_num(int zan_num) {
+        this.zan_num = zan_num;
     }
 
     /**
-     * è·å–0:å¾…å®¡æ ¸,1:é€šè¿‡,2:æœªé€šè¿‡
+     * »ñÈ¡0:´ıÉóºË,1:Í¨¹ı,2:Î´Í¨¹ı
      *
-     * @return state - 0:å¾…å®¡æ ¸,1:é€šè¿‡,2:æœªé€šè¿‡
+     * @return state - 0:´ıÉóºË,1:Í¨¹ı,2:Î´Í¨¹ı
      */
     public int getState() {
         return state;
     }
 
     /**
-     * è®¾ç½®0:å¾…å®¡æ ¸,1:é€šè¿‡,2:æœªé€šè¿‡
+     * ÉèÖÃ0:´ıÉóºË,1:Í¨¹ı,2:Î´Í¨¹ı
      *
-     * @param state 0:å¾…å®¡æ ¸,1:é€šè¿‡,2:æœªé€šè¿‡
+     * @param state 0:´ıÉóºË,1:Í¨¹ı,2:Î´Í¨¹ı
      */
     public void setState(int state) {
         this.state = state;
     }
 
-    /**
+    public String getSend_u_nick_name() {
+		return send_u_nick_name;
+	}
+
+	public void setSend_u_nick_name(String send_u_nick_name) {
+		this.send_u_nick_name = send_u_nick_name;
+	}
+
+	/**
      * @return create_time
      */
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreate_time() {
+        return create_time;
     }
 
     /**
      * @param createTime
      */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
 
     public ArrayList<CommunityPostCommentZan> getZans() {
